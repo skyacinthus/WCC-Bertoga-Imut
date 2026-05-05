@@ -1,5 +1,23 @@
 {
   "dependencies": {
     "express": "^5.2.1"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "unisnu_wcc",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skyacinthus/WCC-Bertoga-Imut.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skyacinthus/WCC-Bertoga-Imut/issues"
+  },
+  "homepage": "https://github.com/skyacinthus/WCC-Bertoga-Imut#readme",
+  "description": ""
 }

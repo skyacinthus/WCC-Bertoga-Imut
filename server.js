@@ -1,10 +1,13 @@
 const express = require('express');
 const app = express();
-const port = 8080;
+const path = require('path');
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
- 
 
-app.listen(port, console.log('listening on port ${port}'));
+app.listen(3000, () => {
+    console.log('Server running at http://localhost:3000');
+});
