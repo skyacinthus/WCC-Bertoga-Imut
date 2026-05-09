@@ -4,12 +4,7 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-<<<<<<< HEAD
 const path = require("path");
-=======
-const path = require('path');
-app.use(express.static(path.join(__dirname, 'public')));
->>>>>>> origin/ui/main-page
 
 app.use(cors());
 app.use(express.json());
