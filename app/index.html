@@ -16,11 +16,33 @@
         </ul>
     </nav>
 
-    <section id="home">
+    <section id="home" class="hero-section">
         <h1>Welcome</h1>
-        <div id="room-list" class="room-list"></div>
     </section>
-    
+
+    <section class="booking-section">
+        <div class="booking-card">
+            <div class="input-group">
+                <div class="text-content">
+                    <h2>Check In & Check Out</h2>
+                    <input type="date" id="start-date" name="start-date"> -
+                    <input type="date" id="end-date" name="end-date">
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <div class="input-group">
+                <div class="text-content">
+                    <h2>Travellers</h2>
+                    <input type="text" id="travellers" name="travellers" placeholder="Number of travellers">
+                </div>
+            </div>
+
+            <button class="submit-btn">Check Availability</button>
+        </div>
+    </section>
+        
     <section id="about">
         <text style="font-size: 20px; font-weight: bold;">Lorem ipsum dolor sit amet.</text>
         <text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
