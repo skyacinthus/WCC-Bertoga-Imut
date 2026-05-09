@@ -1,12 +1,12 @@
-CREATE TABLE users (
-    id_user INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    email VARCHAR(100),
-    password VARCHAR(100),
-    phone VARCHAR(20)
-);CREATE DATABASE IF NOT EXISTS hotel_db;
+CREATE DATABASE IF NOT EXISTS staylounge_db;
 
-USE hotel_db;
+USE staylounge_db;
+
+DROP TABLE IF EXISTS payments;
+DROP TABLE IF EXISTS bookings;
+DROP TABLE IF EXISTS rooms;
+DROP TABLE IF EXISTS room_types;
+DROP TABLE IF EXISTS users;
 
 -- ========================
 -- USERS
