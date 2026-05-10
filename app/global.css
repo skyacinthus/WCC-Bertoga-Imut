@@ -146,6 +146,10 @@ background-image:
   font-size: 1.4rem;
 }
 
+.submit-btn:hover {
+  background-color: #9d7360;
+}
+
 /* mau bikin bagian about us yay */
 
 #about {
