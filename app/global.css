@@ -197,8 +197,8 @@ background-image:
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  padding-bottom: 2rem;
-  padding-top: 2rem;
+  padding-bottom: 3rem;
+  padding-top: 3rem;
   overflow: hidden;
 
   scroll-snap-type: x mandatory;
