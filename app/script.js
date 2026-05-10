@@ -5,7 +5,7 @@ function scrollGallery(direction) {
   console.log(gallery);
 
   gallery.scrollBy({
-    left: direction * 250,
+    left: direction * 500,
     behavior: "smooth"
   });
 }

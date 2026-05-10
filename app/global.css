@@ -168,12 +168,13 @@ background-image:
   padding: 10px;
   padding-top: 0;
 
+  
   scrollbar-width: none;
 }
 
 .gallery img {
-  width: clamp(150px, 25vw, 250px);
-  height: 150px;
+  width: clamp(200px, 25vw, 500px);
+  height: 400px;
 
   object-fit: cover;
   flex-shrink: 0;
@@ -185,11 +186,22 @@ background-image:
 }
 
 .gallery-wrapper {
-  max-width: 1000px;
   margin: auto;
   position: relative;
   display: flex;
   align-items: center;
+  width: 100vw;
+
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+  overflow: hidden;
+
+  scroll-snap-type: x mandatory;
 }
 
 .gallery::-webkit-scrollbar {
