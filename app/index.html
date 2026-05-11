@@ -1,155 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stay Lounge - Cafe and Resto</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stay Lounge - Cafe and Resto</title>
 
-    <link rel="stylesheet" href="/global.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="global.css">
+
+  <!-- ICON -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
-    <nav position: sticky; top: 0;>
-        <ul>
-            <li><a href="#home">Home</a></li> 
-            <li><a href="#about">About us</a></li>
-            <li><a href="#features">Rooms</a></li>
-        </ul>
-    </nav>
 
-    <section id="home" class="hero-section">
-        <h1>Welcome</h1>
-    </section>
+  <!-- NAVBAR -->
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li> 
+      <li><a href="#about">About us</a></li>
+      <li><a href="#rooms">Rooms</a></li>
+    </ul>
+  </nav>
 
-    <section class="booking-section">
-        <div class="booking-card">
-            <div class="input-group">
-                <div class="text-content">
-                    <h2>Check In & Check Out</h2>
-                    <input type="date" id="start-date" name="start-date"> -
-                    <input type="date" id="end-date" name="end-date">
-                </div>
-            </div>
+  <!-- HERO -->
+  <section id="home" class="hero-section">
+    <h1>Welcome</h1>
+  </section>
 
-            <hr class="divider">
+  <!-- BOOKING -->
+  <section class="booking-section">
+    <div class="booking-card">
 
-            <div class="input-group">
-                <div class="text-content">
-                    <h2>Travellers</h2>
-                    <input type="text" id="travellers" name="travellers" placeholder="Number of travellers">
-                </div>
-            </div>
-
-            <button class="submit-btn">Check Availability</button>
+      <div class="input-group">
+        <div class="text-content">
+          <h2>Check In & Check Out</h2>
+          <input type="date"> -
+          <input type="date">
         </div>
-    </section>
-        
-    <section id="about">
-        <text style="font-size: 40px; font-weight: bold;">Lorem ipsum dolor sit amet.</text>
-        <text style="font-size: 24px; text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</text>
+      </div>
 
-        <div class="gallery-wrapper">
-    
-            <button class="arrow left" onclick="scrollGallery(-1)">‹</button>
+      <hr class="divider">
 
-            <div class="gallery" id="gallery">
-                <img src="public/img1.jpg">
-                <img src="public/img2.jpg">
-                <img src="public/img3.jpg">
-                <img src="public/img4.jpg">
-                <img src="public/img5.jpg">
-                <img src="public/img6.jpg">
-                <img src="public/img7.jpg">
-            </div>
-
-            <button class="arrow right" onclick="scrollGallery(1)">›</button>
-
+      <div class="input-group">
+        <div class="text-content">
+          <h2>Travellers</h2>
+          <input type="text" placeholder="Number of travellers">
         </div>
-    </section>
-    <section id="features"><h1>Rooms</h1>
-        <text><a href="/rooms/=">Rooms</a></text>
-    </section>
+      </div>
 
+      <button class="submit-btn">Check Availability</button>
 
-    <footer className="bg-[#3E2723] text-[#F8F5F2]">
-      <div className="mx-auto max-w-7xl px-8 py-16">
+    </div>
+  </section>
 
-        <div className="grid items-center gap-16 lg:grid-cols-2">
+  <!-- ABOUT -->
+  <section id="about">
+    <h2 style="font-size: 40px; font-weight: bold;">
+      Lorem ipsum dolor sit amet.
+    </h2>
 
-          {/* LEFT */}
-          <div className="flex flex-col justify-center">
+    <p style="font-size: 24px; text-align: justify;">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    </p>
 
-            {/* LOGO + TITLE */}
-            <div className="mb-8 flex items-center gap-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-[#C8A96B]/50 text-sm">
-                LOGO
-              </div>
+    <div class="gallery-wrapper">
 
-              <div>
-                <h2 className="text-4xl font-semibold">
-                  Stay Lounge
-                </h2>
+      <button class="arrow left" onclick="scrollGallery(-1)">‹</button>
 
-                <p className="text-lg text-[#D7CCC8]">
-                  Luxury & Comfortable Place
-                </p>
-              </div>
-            </div>
+      <div class="gallery" id="gallery">
+        <img src="public/img1.jpg">
+        <img src="public/img2.jpg">
+        <img src="public/img3.jpg">
+        <img src="public/img4.jpg">
+        <img src="public/img5.jpg">
+        <img src="public/img6.jpg">
+        <img src="public/img7.jpg">
+      </div>
 
-            {/* ADDRESS */}
-            <p className="max-w-md text-lg leading-9 text-[#F1E7DD]">
-              Jl. Wijaya Kusuma, Dero,
-              Condongcatur, Kec. Depok,
-              Kabupaten Sleman,
-              Daerah Istimewa Yogyakarta 55281
-            </p>
+      <button class="arrow right" onclick="scrollGallery(1)">›</button>
 
-            {/* SOCIAL */}
-            <div className="mt-10 flex gap-4">
+    </div>
+  </section>
 
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#C8A96B]/50 text-xl">
-                <i className="fab fa-whatsapp"></i>
-              </div>
+  <!-- ROOMS -->
+  <section id="rooms">
+    <h1>Our Rooms</h1>
 
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#C8A96B]/50 text-xl">
-                <i className="fab fa-instagram"></i>
-              </div>
+    <div class="room-container">
 
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#C8A96B]/50 text-xl">
-                <i className="fab fa-tiktok"></i>
-              </div>
+      <div class="card">
+        <img src="https://picsum.photos/300/200">
+        <h2>Deluxe Room</h2>
+        <p>Nyaman untuk 2 orang</p>
+        <button>Book Now</button>
+      </div>
 
+      <div class="card">
+        <img src="https://picsum.photos/301/200">
+        <h2>Family Room</h2>
+        <p>Cocok untuk keluarga</p>
+        <button>Book Now</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LINK TEST -->
+  <p><a href="rooms/rooms.html">Rooms</a></p>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <!-- LEFT -->
+        <div>
+
+          <div class="footer-header">
+            <div class="logo-box">LOGO</div>
+
+            <div>
+              <h2>Stay Lounge</h2>
+              <p>Luxury & Comfortable Place</p>
             </div>
           </div>
 
-          {/* RIGHT */}
-          <div className="flex justify-center lg:justify-end">
-
-            <div className="overflow-hidden rounded-[28px] border border-white/10 shadow-2xl">
-
-              <iframe
-                src="https://maps.google.com/maps?q=condongcatur%20sleman&t=&z=12&ie=UTF8&iwloc=&output=embed"
-                loading="lazy"
-                className="h-[320px] w-[500px]"
-              />
-
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* COPYRIGHT */}
-        <div className="mt-14 border-t border-[#C8A96B]/20 pt-6">
-          <p className="text-center text-base text-[#D7CCC8]">
-            © 2026 Stay Lounge. All rights reserved.
+          <p class="address">
+            Jl. Wijaya Kusuma, Dero,
+            Condongcatur, Kec. Depok,
+            Kabupaten Sleman,
+            Daerah Istimewa Yogyakarta 55281
           </p>
+
+          <div class="social">
+            <div class="icon"><i class="fab fa-whatsapp"></i></div>
+            <div class="icon"><i class="fab fa-instagram"></i></div>
+            <div class="icon"><i class="fab fa-tiktok"></i></div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="footer-right">
+          <div class="map-box">
+            <iframe
+              src="https://maps.google.com/maps?q=condongcatur%20sleman&t=&z=12&ie=UTF8&iwloc=&output=embed"
+              loading="lazy">
+            </iframe>
+          </div>
         </div>
 
       </div>
-    </footer>
-<script src="script.js"></script>
+
+      <!-- COPYRIGHT -->
+      <div class="copyright">
+        <p>© 2026 Stay Lounge. All rights reserved.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
 </body>
 </html>
