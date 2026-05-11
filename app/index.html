@@ -68,7 +68,88 @@
 
         </div>
     </section>
-    <section id="features"><h1>Rooms</h1></section>
+    <section id="features"><h1>Rooms</h1>
+        <text><a href="rooms.html">Rooms</a></text>
+    </section>
+
+
+        <footer className="bg-[#3E2723] text-[#F8F5F2]">
+      <div className="mx-auto max-w-7xl px-8 py-16">
+
+        <div className="grid items-center gap-16 lg:grid-cols-2">
+
+          {/* LEFT */}
+          <div className="flex flex-col justify-center">
+
+            {/* LOGO + TITLE */}
+            <div className="mb-8 flex items-center gap-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-[#C8A96B]/50 text-sm">
+                LOGO
+              </div>
+
+              <div>
+                <h2 className="text-4xl font-semibold">
+                  Stay Lounge
+                </h2>
+
+                <p className="text-lg text-[#D7CCC8]">
+                  Luxury & Comfortable Place
+                </p>
+              </div>
+            </div>
+
+            {/* ADDRESS */}
+            <p className="max-w-md text-lg leading-9 text-[#F1E7DD]">
+              Jl. Wijaya Kusuma, Dero,
+              Condongcatur, Kec. Depok,
+              Kabupaten Sleman,
+              Daerah Istimewa Yogyakarta 55281
+            </p>
+
+            {/* SOCIAL */}
+            <div className="mt-10 flex gap-4">
+
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#C8A96B]/50 text-xl">
+                <i className="fab fa-whatsapp"></i>
+              </div>
+
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#C8A96B]/50 text-xl">
+                <i className="fab fa-instagram"></i>
+              </div>
+
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#C8A96B]/50 text-xl">
+                <i className="fab fa-tiktok"></i>
+              </div>
+
+            </div>
+          </div>
+
+          {/* RIGHT */}
+          <div className="flex justify-center lg:justify-end">
+
+            <div className="overflow-hidden rounded-[28px] border border-white/10 shadow-2xl">
+
+              <iframe
+                src="https://maps.google.com/maps?q=condongcatur%20sleman&t=&z=12&ie=UTF8&iwloc=&output=embed"
+                loading="lazy"
+                className="h-[320px] w-[500px]"
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* COPYRIGHT */}
+        <div className="mt-14 border-t border-[#C8A96B]/20 pt-6">
+          <p className="text-center text-base text-[#D7CCC8]">
+            © 2026 Stay Lounge. All rights reserved.
+          </p>
+        </div>
+
+      </div>
+    </footer>
 <script src="script.js"></script>
 </body>
 </html>
