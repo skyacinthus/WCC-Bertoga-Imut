@@ -5,35 +5,27 @@ const path = require("path");
 
 const app = express();
 
-// 1. SET EJS AS THE TEMPLATING ENGINE
-app.set('view engine', 'ejs');
-// Point 'views' to your 'app' folder where index.ejs lives
-app.set('views', path.join(__dirname, 'app'));
-
 app.use(cors());
 app.use(express.json());
 
-// 2. SERVE STATIC FILES
-// This ensures your CSS/Images in image_e0291d.png are found
 app.use(express.static(path.join(__dirname, "app")));
 
 // =========================
-// FRONTEND ROUTES
+// FRONTEND ROUTES (Sending HTML files)
 // =========================
 
 app.get("/", (req, res) => {
-  // Use res.render instead of res.sendFile for EJS
-  res.render("index"); 
+  res.sendFile(path.join(__dirname, "app", "index.html")); 
 });
 
 // Route for the dedicated rooms page
 app.get("/rooms-page", (req, res) => {
-  res.render("rooms/rooms"); 
+  res.sendFile(path.join(__dirname, "app", "rooms", "rooms.html")); 
 });
 
 
 // =========================
-// API ROOMS (Backend)
+// API ROOMS (Backend remains the same)
 // =========================
 app.get("/api/rooms", (req, res) => {
   const sql = `
