@@ -1,3 +1,4 @@
+
 function scrollGallery(direction) {
   const gallery = document.getElementById("gallery");
   console.log(gallery);
