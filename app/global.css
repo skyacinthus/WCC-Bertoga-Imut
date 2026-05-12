@@ -459,3 +459,29 @@ background-image:
   cursor: pointer;
   font-weight: bold;
 }
+
+/*ini buat database*/
+
+.room-list {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.room-card {
+  width: 300px;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.room-card h2 {
+  margin-bottom: 10px;
+}
+
+.room-card p {
+  margin: 5px 0;
+}

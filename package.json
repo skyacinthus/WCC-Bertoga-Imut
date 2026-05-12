@@ -1,14 +1,18 @@
 {
-  "dependencies": {
-    "ejs": "^5.0.2",
-    "express": "^5.2.1"
-  },
-  "scripts": {
-    "start": "node server.js"
-  },
   "name": "unisnu_wcc",
   "version": "1.0.0",
+  "description": "",
   "main": "server.js",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "ejs": "^5.0.2",
+    "express": "^5.2.1",
+    "mysql2": "^3.22.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/skyacinthus/WCC-Bertoga-Imut.git"
@@ -19,6 +23,5 @@
   "bugs": {
     "url": "https://github.com/skyacinthus/WCC-Bertoga-Imut/issues"
   },
-  "homepage": "https://github.com/skyacinthus/WCC-Bertoga-Imut#readme",
-  "description": ""
+  "homepage": "https://github.com/skyacinthus/WCC-Bertoga-Imut#readme"
 }
