@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="booking.css"/>
+</head>
+
+<body>
+        <div class="stepper">
+        <div class="step active">
+            <div class="circle">1</div>
+            <p>Your selection</p>
+        </div>
+
+        <div class="line"></div>
+
+        <div class="step active">
+            <div class="circle">2</div>
+            <p>Your details</p>
+        </div>
+
+        <div class="line"></div>
+
+        <div class="step">
+            <div class="circle">3</div>
+            <p>Payment</p>
+        </div>
+    </div>
+
+    <div class="booking-layout">
+
+        <div class="left-section">
+            <!-- image -->
+            
+            <div class="card">
+                <div style="font-weight: bold;">
+                    Your booking details
+                </div>
+                <div class="booking-date">
+                    <div>
+                        <p>Check-in</p>
+                        <h3>Fri, May 15, 2026</h3>
+                    </div>
+
+                    <div>
+                        <p>Check-out</p>
+                        <h3>Fri, May 15, 2026</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <p>Your pricing details</p>
+                <div class="price-row">
+                    <p>Rooms</p>
+                    <p>IDR 1,110,988</p>
+                </div>
+                <div class="price-row">
+                    <p>Add-ons</p>
+                    <p>IDR 0</p>
+                </div>
+                <div class="price-row">
+                    <p>Tax (10%)</p>
+                    <p>IDR 11,088</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="right-section">
+            <!-- form -->
+        </div>
+
+    </div>
+
+    <button class="button" onclick="window.location.href='/booking/payment.html'">Confirm</button>
+
+</body>

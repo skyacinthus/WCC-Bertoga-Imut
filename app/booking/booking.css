@@ -1,0 +1,160 @@
+*{
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+body{
+    background-color: #F5F1E8;
+}
+
+.row{
+    display: flex;
+    flex-direction: column;
+}
+
+.column{
+    display: flex;
+    flex-direction: row;
+}
+
+.stepper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 12px;
+
+    padding: 30px;
+    background: #f5f2eb;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.circle{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid #6B4F2A;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+    font-size: 24px;
+
+    color: #6B4F2A;
+    background: white;
+}
+
+.line{
+    width: 120px;
+    height: 2px;
+    background: #6B4F2A;
+}
+
+.step.active .circle {
+    background: #6B4F2A;
+    color: white;
+}
+
+.step p {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.booking-layout {
+  display: flex;
+  gap: 10px;
+
+  padding: 40px;
+  align-items: flex-start;
+}
+
+.left-section {
+  width: 320px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.right-section {
+  flex: 1;
+}
+
+.card {
+  background: #f7f4ed;
+
+  border: 1px solid #c8c1b7;
+  border-radius: 16px;
+
+  padding: 20px;
+}
+
+.room-image {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group input {
+  height: 46px;
+
+  border: 1px solid #8f8577;
+  border-radius: 10px;
+
+  padding-inline: 14px;
+  font-size: 16px;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+}
+
+.booking-date {
+  display: flex;
+  justify-content: space-between;
+}
+
+.booking-date p {
+  font-size: 14px;
+}
+
+.booking-date h3 {
+  font-size: 18px;  
+  font-weight: bold;
+
+}
+
+button {
+  background: #6B4F2A;
+  color: white;
+
+  border: none;
+  border-radius: 12px;
+
+  padding: 14px 28px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
