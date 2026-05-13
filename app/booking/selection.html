@@ -7,7 +7,7 @@
 </head>
 
 <body>
-        <div class="stepper">
+    <div class="stepper">
         <div class="step active">
             <div class="circle">1</div>
             <p>Your selection</p>
@@ -28,5 +28,49 @@
         </div>
     </div>
 
-    <button class="button" onclick="window.location.href='/booking/guest-details.html'">Confirm</button>
+    <div class="selection-layout">
+        
+        <div class="card-selection">
+            <div class="image-container">
+                <img src="public/img1.jpg" class="room-image">
+            </div>
+            
+            <div>
+                    <p>★ ★ ★ ★ ★</p>
+                    <h3>Deluxe room for 3 people</h3>
+                    <p>1 King Bed • 32m²</p>
+                    <p>Free Wi-Fi • Breakfast included</p>
+            </div>
+
+            <div class="grey-line"></div>
+
+            <div class="booking-date-selection">
+                <div>
+                    <p>Check-in</p>
+                    <h3>Fri, May 15, 2026</h3>
+                    <input type="date">
+                </div>
+
+                <div>
+                    <p>Check-out</p>
+                    <h3>Fri, May 15, 2026</h3>
+                    <input type="date">
+                </div>
+            </div>
+
+            <div class="grey-line"></div>
+
+            <div class="price-row">
+                <p>Deluxe 3 Nights</p>
+                <h3>IDR 11,088,000</h3>
+            </div>
+
+            <a href="/#rooms">Change selection?</a>
+
+        </div>
+    </div>
+
+    <div class="button-container">    
+        <button class="btn-selection" onclick="window.location.href='/booking/guest-details.html'">Confirm</button>
+    </div>
 </body>

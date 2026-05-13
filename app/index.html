@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stay Lounge - Cafe and Resto</title>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="global.css">
-
-  <!-- ICON -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
@@ -21,6 +18,7 @@
       <li><a href="#rooms">Rooms</a></li>
     </ul>
   </nav>
+  
   <!-- HERO -->
   <section id="home" class="hero-section">
     <h1>Welcome</h1>
@@ -30,25 +28,32 @@
   <section class="booking-section">
     <div class="booking-card">
 
-      <div class="input-group">
-        <div class="text-content">
-          <h2>Check In & Check Out</h2>
-          <input type="date"> -
-          <input type="date">
+      <div class="booking-container">
+        <i class="fa-solid fa-calendar" style="font-size: 32px;"></i>        
+        <div class="input-group">
+          <div class="text-content">
+            <h2>Check In & Check Out</h2>
+            <input type="date"> -
+            <input type="date">
+          </div>
         </div>
       </div>
 
       <hr class="divider">
 
-      <div class="input-group">
-        <div class="text-content">
-          <h2>Travellers</h2>
-          <input type="text" placeholder="Number of travellers">
+      <div class="booking-container">
+        <i class="fa-solid fa-user" style="font-size: 32px;"></i>
+        
+        <div class="input-group">
+          <div class="text-content">
+            <h2>Travellers</h2>
+            <input type="text" placeholder="Number of travellers">
+          </div>
         </div>
       </div>
 
-      <button class="submit-btn" onclick="window.location.href='rooms/rooms.html'">Check Availability</button>
-
+      <button class="submit-btn" onclick="window.location.href='/#rooms'">Check Availability</button>
+ 
     </div>
   </section>
 
@@ -84,81 +89,80 @@
   </section>
 
  <!-- ROOMS -->
-<section id="rooms">
-  <h1>Our Rooms</h1>
+  <section id="rooms">
+    <h1>Discover our room selection</h1>
 
-  <div class="rooms-list">
+    <div class="rooms-list">
 
-    <!-- CARD 1 -->
-    <div class="room-card">
-      <img src="public/img1.jpg" alt="Room">
+      <!-- CARD 1 -->
+      <div class="room-card">
+        <img src="public/img1.jpg" alt="Room">
 
-      <div class="room-info">
-        <span class="badge">
-          <i class="fa-solid fa-circle-info"></i> Any discount offers
-        </span>
+        <div class="room-info">
+          <span class="badge">
+            <i class="fa-solid fa-circle-info"></i> Any discount offers
+          </span>
 
-        <h2>Lorem Ipsum Dolor Sit Amet</h2>
+          <h2>Lorem Ipsum Dolor Sit Amet</h2>
 
-        <div class="features">
-          <span><i class="fa-solid fa-check"></i> Lorem Ipsum</span>
-          <span><i class="fa-solid fa-check"></i> Lorem Ipsum</span>
-          <span><i class="fa-solid fa-check"></i> Lorem Ipsum</span>
+          <div class="features">
+            <span><i class="fa-solid fa-check"></i> Lorem Ipsum</span>
+            <span><i class="fa-solid fa-check"></i> Lorem Ipsum</span>
+            <span><i class="fa-solid fa-check"></i> Lorem Ipsum</span>
+          </div>
+
+          <div class="meta">
+            <span><i class="fa-solid fa-user"></i> 2 Persons</span>
+            <span><i class="fa-solid fa-expand"></i> 25 sqm</span>
+          </div>
+
+          <a href="#">Room details</a>
         </div>
 
-        <div class="meta">
-          <span><i class="fa-solid fa-user"></i> 2 Persons</span>
-          <span><i class="fa-solid fa-expand"></i> 25 sqm</span>
+        <div class="room-price">
+          <p>Price for 1 night</p>
+          <h2>IDR 1,112,680</h2>
+          <span>Includes Taxes & Fees</span>
+          <button onclick="window.location.href='/booking/selection.html'">Select</button>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="room-card">
+        <img src="public/img2.jpg" alt="Room">
+
+        <div class="room-info">
+          <span class="badge">
+            <i class="fa-solid fa-circle-info"></i> Any discount offers
+          </span>
+
+          <h2>Lorem Ipsum Dolor Sit Amet</h2>
+
+          <div class="features">
+            <span><i class="fa-solid fa-check"></i> Lorem Ipsum</span>
+            <span><i class="fa-solid fa-check"></i> Lorem Ipsum</span>
+            <span><i class="fa-solid fa-check"></i> Lorem Ipsum</span>
+          </div>
+
+          <div class="meta">
+            <span><i class="fa-solid fa-user"></i> 2 Persons</span>
+            <span><i class="fa-solid fa-expand"></i> 25 sqm</span>
+          </div>
+
+          <a href="#">Room details</a>
         </div>
 
-        <a href="#">Room details</a>
+        <div class="room-price">
+          <p>Price for 1 night</p>
+          <h2>IDR 1,112,680</h2>
+          <span>Includes Taxes & Fees</span>
+          <button onclick="window.location.href='/booking/selection.html'">Select</button>
+        </div>
       </div>
 
-      <div class="room-price">
-        <p>Price for 1 night</p>
-        <h2>IDR 1,112,680</h2>
-        <span>Includes Taxes & Fees</span>
-        <button onclick="window.location.href='/booking/selection.html'">Select</button>
-      </div>
     </div>
 
-    <!-- CARD 2 -->
-    <div class="room-card">
-      <img src="public/img2.jpg" alt="Room">
-
-      <div class="room-info">
-        <span class="badge">
-          <i class="fa-solid fa-circle-info"></i> Any discount offers
-        </span>
-
-        <h2>Lorem Ipsum Dolor Sit Amet</h2>
-
-        <div class="features">
-          <span><i class="fa-solid fa-check"></i> Lorem Ipsum</span>
-          <span><i class="fa-solid fa-check"></i> Lorem Ipsum</span>
-          <span><i class="fa-solid fa-check"></i> Lorem Ipsum</span>
-        </div>
-
-        <div class="meta">
-          <span><i class="fa-solid fa-user"></i> 2 Persons</span>
-          <span><i class="fa-solid fa-expand"></i> 25 sqm</span>
-        </div>
-
-        <a href="#">Room details</a>
-      </div>
-
-      <div class="room-price">
-        <p>Price for 1 night</p>
-        <h2>IDR 1,112,680</h2>
-        <span>Includes Taxes & Fees</span>
-        <button onclick="window.location.href='/booking/selection.html'">Select</button>
-      </div>
-    </div>
-
-  </div>
-    <button class="view-more" onclick="window.location.href='/rooms/rooms.html'">View More Rooms</button>
-
-</section>
+  </section>
 
   <!-- FOOTER -->
   <footer class="footer">

@@ -1,5 +1,4 @@
-/* navbar, global, section*/
-
+/* GLOBAL */
 * {
   margin: 0;
   padding: 0;
@@ -7,13 +6,14 @@
   font-family: "Inter", sans-serif;
   font-size: 16px;
   font-weight: normal;
-}
+} 
 
 html {
   scroll-behavior: smooth;
   background-color: #F5F1E8;
 }
 
+/*NAVBAR*/
 nav {
   background: #3E2F1C;
   color: white;
@@ -21,7 +21,6 @@ nav {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 1rem;
   position: fixed; 
   
   width: 100%;
@@ -49,6 +48,7 @@ nav ul li a:hover {
   opacity: 0.5;
 }
 
+/*SECTION*/
 section {
   padding-top: 120px;
   min-height: auto; /* heightnya aku ganti ya guys kalo mau kyk sebelumnya diganti jadi 100vh */
@@ -107,7 +107,8 @@ background-image:
   background: white;
   width: 95%;
   max-width: 150vh;
-  padding: 4.5rem;
+
+  padding: 50px;
   border-radius: 15px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.15);
 }
@@ -117,34 +118,59 @@ background-image:
     color: grey;
 }
 
-.booking-card input {
-    font-size: 1.2rem; 
-    padding: 0.8rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+.booking-container{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+
+  align-items: center;
 }
 
+.booking-card input {
+    font-size: 20px; 
+    padding: 3px;
 
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    border: 0;
+    border-radius: 8px;
+
+    transition: 0.3s ease;
+
+}
+
+.booking-card input:hover{
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
 
 .submit-btn {
   background-color: #3D2B1F;
   color: white;
   width: 100%;
-  padding: 1rem;
+
+  padding: 10px;
+
   border: none;
   border-radius: 8px;
+
   font-weight: bold;
+
   cursor: pointer;
-  margin-top: 1rem;
-  font-size: 1.4rem;
+
+  margin-top: 10px;
+  font-size: 20px;
 }
 
 .submit-btn:hover {
   background-color: #9d7360;
 }
 
+.divider{
+  margin: 10px;
+}
+
+/*ABOUT*/
 #about {
   display: flex;
   flex-direction: column;
@@ -232,107 +258,6 @@ background-image:
   right: 20px;
 }
 
-/* FOOTER */
-
-.footer {
-  background: #3E2F1C;
-  color: #F8F5F2;
-  padding: 60px 40px;
-}
-
-.container {
-  max-width: 1200px;
-  margin: auto;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
-  align-items: center;
-}
-
-.footer-header {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.logo-box {
-  width: 60px;
-  height: 60px;
-  border: 1px solid #C8A96B;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-}
-
-.footer h2 {
-  font-size: 32px;
-  font-weight: 600;
-}
-
-.footer p {
-  font-size: 16px;
-  color: #D7CCC8;
-}
-
-.address {
-  margin-top: 10px;
-  line-height: 1.8;
-  max-width: 400px;
-  color: #F1E7DD;
-}
-
-.social {
-  display: flex;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.icon {
-  width: 45px;
-  height: 45px;
-  border: 1px solid #C8A96B;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.3s;
-}
-
-.icon:hover {
-  background: #C8A96B;
-  color: black;
-}
-
-.footer-right {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.map-box {
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-}
-
-.map-box iframe {
-  width: 500px;
-  height: 300px;
-  border: none;
-}
-
-.copyright {
-  margin-top: 40px;
-  border-top: 1px solid rgba(200,169,107,0.3);
-  padding-top: 15px;
-  text-align: center;
-  font-size: 14px;
-  color: #D7CCC8;
-}
 
 /* ROOMS */
 #rooms {
@@ -449,13 +374,104 @@ background-image:
   background: #2e2111;
 }
 
-.view-more{
-  margin-top: 30px;
-  background: #4a351c;
-  color: white;
+/* FOOTER */
+
+.footer {
+  background: #3E2F1C;
+  color: #F8F5F2;
+  padding: 60px 40px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.footer-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.logo-box {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #C8A96B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.footer h2 {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.footer p {
+  font-size: 16px;
+  color: #D7CCC8;
+}
+
+.address {
+  margin-top: 10px;
+  line-height: 1.8;
+  max-width: 400px;
+  color: #F1E7DD;
+}
+
+.social {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.icon {
+  width: 45px;
+  height: 45px;
+  border: 1px solid #C8A96B;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.icon:hover {
+  background: #C8A96B;
+  color: black;
+}
+
+.footer-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.map-box {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.map-box iframe {
+  width: 500px;
+  height: 300px;
   border: none;
-  padding: 14px 28px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: bold;
+}
+
+.copyright {
+  margin-top: 40px;
+  border-top: 1px solid rgba(200,169,107,0.3);
+  padding-top: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #D7CCC8;
 }
