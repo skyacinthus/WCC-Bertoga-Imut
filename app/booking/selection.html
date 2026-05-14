@@ -17,7 +17,7 @@
 
         <div class="step">
             <div class="circle">2</div>
-            <p id="confirm-btn">Your details</p>
+            <p class="confirm-btn">Your details</p>
         </div>
 
         <div class="line"></div>
@@ -72,7 +72,7 @@
     </div>
 
     <div class="button-container">    
-        <button id="confirm-btn" class="btn-selection">Confirm</button>
+        <button class="btn-selection confirm-btn">Confirm</button>
     </div>
 
     <script>
@@ -105,9 +105,13 @@
         ? `IDR ${Number(totalPrice).toLocaleString("id-ID")}`
         : "-";
 
-        document.getElementById("confirm-btn").onclick = () => {
-        window.location.href = `/booking/guest-details.html?${params.toString()}`;
-        };
+        const confirmElements = document.querySelectorAll(".confirm-btn");
+
+        confirmElements.forEach(element => {
+            element.onclick = () => {
+                window.location.href = `/booking/guest-details.html?${params.toString()}`;
+            };
+        });
     </script>
 </body>
 
