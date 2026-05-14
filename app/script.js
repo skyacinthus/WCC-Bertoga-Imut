@@ -1,48 +1,27 @@
-
+// GALLERY
 function scrollGallery(direction) {
   const gallery = document.getElementById("gallery");
-  console.log(gallery);
-
-  gallery.scrollBy({
-    left: direction * 500,
-    behavior: "smooth"
-  });
+  gallery.scrollBy({ left: direction * 500, behavior: "smooth" });
 }
 
-async function getRooms() {
+// ========================
+// DATE FORM — Check Availability button
+// ========================
+function checkAvailability() {
+  const checkIn = document.getElementById("check-in").value;
+  const checkOut = document.getElementById("check-out").value;
+  const guests = document.getElementById("guests").value;
 
-  const response = await fetch("/rooms");
+  if (!checkIn || !checkOut || !guests) {
+    alert("Please fill in all fields.");
+    return;
+  }
 
-  const rooms = await response.json();
+  if (new Date(checkOut) <= new Date(checkIn)) {
+    alert("Check-out must be after check-in.");
+    return;
+  }
 
-  const roomList = document.getElementById("room-list");
-
-  roomList.innerHTML = "";
-
-  rooms.forEach((room) => {
-
-    roomList.innerHTML += `
-
-      <div class="room-card">
-
-        <h2>${room.room_type_name}</h2>
-
-        <p>Room ${room.room_number}</p>
-
-        <p>Status: ${room.status}</p>
-
-        <p>Capacity: ${room.capacity} People</p>
-
-        <p>${room.facilities}</p>
-
-        <h3>Rp ${room.price}</h3>
-
-      </div>
-
-    `;
-
-  });
-
+  document.getElementById("rooms").scrollIntoView({ behavior: "smooth" });
 }
 
-getRooms();
