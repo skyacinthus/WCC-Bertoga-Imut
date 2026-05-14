@@ -28,6 +28,7 @@ CREATE TABLE room_types (
     capacity INT NOT NULL,
     facilities TEXT,
     price DECIMAL(10,2) NOT NULL
+    image_url VARCHAR(255)
 );
 
 -- ========================
@@ -53,7 +54,7 @@ CREATE TABLE bookings (
 
     check_in DATE NOT NULL,
     check_out DATE NOT NULL,
-
+    num_guests INT NOT NULL DEFAULT 1,
     total_price DECIMAL(10,2) NOT NULL,
 
     booking_status ENUM(

@@ -2,53 +2,172 @@ const db = require("./config/db");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-
 app.use(express.static(path.join(__dirname, "app")));
 
-// =========================
-// FRONTEND ROUTES (Sending HTML files)
-// =========================
-
+// ========================
+// FRONTEND ROUTES
+// ========================
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "app", "index.html")); 
+  res.sendFile(path.join(__dirname, "app", "index.html"));
 });
-
-// Route for the dedicated rooms page
 app.get("/rooms-page", (req, res) => {
-  res.sendFile(path.join(__dirname, "app", "rooms", "rooms.html")); 
+  res.sendFile(path.join(__dirname, "app", "rooms", "rooms.html"));
 });
 
-
-// =========================
-// API ROOMS (Backend remains the same)
-// =========================
+// ========================
+// GET ALL ROOMS (rooms method - no date filter)
+// ========================
 app.get("/api/rooms", (req, res) => {
   const sql = `
     SELECT 
-      rooms.id_room,
-      rooms.room_number,
-      rooms.status,
-      room_types.room_type_name,
-      room_types.capacity,
-      room_types.facilities,
-      room_types.price
-    FROM rooms
-    JOIN room_types
-    ON rooms.id_room_type = room_types.id_room_type
+      r.id_room,
+      r.room_number,
+      r.status,
+      rt.room_type_name,
+      rt.capacity,
+      rt.facilities,
+      rt.price,
+      rt.image_url
+    FROM rooms r
+    JOIN room_types rt ON r.id_room_type = rt.id_room_type
+    WHERE r.status != 'maintenance'
+  `;
+  db.query(sql, (err, result) => {
+    if (err) return res.status(500).json({ error: "Failed to fetch rooms" });
+    res.json(result);
+  });
+});
+
+// ========================
+// GET AVAILABLE ROOMS (date method - filtered)
+// query params: check_in, check_out, guests
+// ========================
+app.get("/api/rooms/available", (req, res) => {
+  const { check_in, check_out, guests } = req.query;
+
+  if (!check_in || !check_out || !guests) {
+    return res.status(400).json({ error: "check_in, check_out, and guests are required" });
+  }
+
+  const sql = `
+    SELECT 
+      r.id_room,
+      r.room_number,
+      r.status,
+      rt.room_type_name,
+      rt.capacity,
+      rt.facilities,
+      rt.price,
+      rt.image_url
+    FROM rooms r
+    JOIN room_types rt ON r.id_room_type = rt.id_room_type
+    WHERE r.status != 'maintenance'
+    AND rt.capacity >= ?
+    AND r.id_room NOT IN (
+      SELECT id_room FROM bookings
+      WHERE booking_status NOT IN ('cancelled')
+      AND check_in < ? AND check_out > ?
+    )
   `;
 
-  db.query(sql, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send("Error mengambil data");
-    } else {
-      res.json(result);
-    }
+  db.query(sql, [guests, check_out, check_in], (err, result) => {
+    if (err) return res.status(500).json({ error: "Failed to fetch available rooms" });
+    res.json(result);
+  });
+});
+
+// ========================
+// GET BOOKED DATES FOR A ROOM (for date picker modal)
+// ========================
+app.get("/api/rooms/:id/booked-dates", (req, res) => {
+  const { id } = req.params;
+
+  const sql = `
+    SELECT check_in, check_out
+    FROM bookings
+    WHERE id_room = ?
+    AND booking_status NOT IN ('cancelled')
+    AND check_out >= CURDATE()
+  `;
+
+  db.query(sql, [id], (err, result) => {
+    if (err) return res.status(500).json({ error: "Failed to fetch booked dates" });
+    res.json(result);
+  });
+});
+
+// ========================
+// CREATE BOOKING
+// ========================
+app.post("/api/bookings", (req, res) => {
+  const { id_room, check_in, check_out, num_guests, total_price } = req.body;
+
+  // id_user is null for now until you build auth
+  const sql = `
+    INSERT INTO bookings (id_user, id_room, check_in, check_out, num_guests, total_price, booking_status)
+    VALUES (NULL, ?, ?, ?, ?, ?, 'pending')
+  `;
+
+  db.query(sql, [id_room, check_in, check_out, num_guests, total_price], (err, result) => {
+    if (err) return res.status(500).json({ error: "Failed to create booking" });
+    res.json({ id_booking: result.insertId });
+  });
+});
+
+// ========================
+// GET BOOKING BY ID (for confirmation/details page)
+// ========================
+app.get("/api/bookings/:id", (req, res) => {
+  const { id } = req.params;
+
+  const sql = `
+    SELECT 
+      b.*,
+      r.room_number,
+      rt.room_type_name,
+      rt.facilities,
+      rt.image_url,
+      rt.price
+    FROM bookings b
+    JOIN rooms r ON b.id_room = r.id_room
+    JOIN room_types rt ON r.id_room_type = rt.id_room_type
+    WHERE b.id_booking = ?
+  `;
+
+  db.query(sql, [id], (err, result) => {
+    if (err) return res.status(500).json({ error: "Failed to fetch booking" });
+    if (result.length === 0) return res.status(404).json({ error: "Booking not found" });
+    res.json(result[0]);
+  });
+});
+
+// ========================
+// CREATE PAYMENT
+// ========================
+app.post("/api/payments", (req, res) => {
+  const { id_booking, payment_method } = req.body;
+
+  const sql = `
+    INSERT INTO payments (id_booking, payment_method, payment_date, payment_status)
+    VALUES (?, ?, CURDATE(), 'pending')
+  `;
+
+  db.query(sql, [id_booking, payment_method], (err, result) => {
+    if (err) return res.status(500).json({ error: "Failed to record payment" });
+
+    // also update booking status to confirmed
+    db.query(
+      `UPDATE bookings SET booking_status = 'confirmed' WHERE id_booking = ?`,
+      [id_booking],
+      (err2) => {
+        if (err2) return res.status(500).json({ error: "Payment recorded but booking status not updated" });
+        res.json({ id_payment: result.insertId });
+      }
+    );
   });
 });
 

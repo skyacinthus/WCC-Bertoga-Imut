@@ -33,8 +33,8 @@
         <div class="input-group">
           <div class="text-content">
             <h2>Check In & Check Out</h2>
-            <input type="date"> -
-            <input type="date">
+            <input id="check-in" type="date"> -
+            <input id="check-out" type="date">
           </div>
         </div>
       </div>
@@ -47,12 +47,12 @@
         <div class="input-group">
           <div class="text-content">
             <h2>Travellers</h2>
-            <input type="text" placeholder="Number of travellers">
+            <input id="guests" type="number" placeholder="Number of travellers">
           </div>
         </div>
       </div>
 
-      <button class="submit-btn" onclick="window.location.href='/#rooms'">Check Availability</button>
+      <button class="submit-btn" onclick="checkAvailability()">Check Availability</button>
  
     </div>
   </section>
