@@ -101,31 +101,31 @@
                     <div class="input-row">
                         <div>
                             <h3>First name</h3>
-                            <input type="text"/>
+                            <input id="first-name" type="text"/>
                         </div>
 
                         <div>
                             <h3>Last name</h3>
-                            <input type="text"/>
+                            <input id="last-name" type="text"/>
                         </div>
                     </div>
 
                     <div class="input-row">
                         <div>
                             <h3>Email adress</h3>
-                            <input type="text" class="input" required>
+                            <input id="email" type="text" class="input" required>
                             <p>Confirmation email will be sent to this address</p>
                         </div>
 
                         <div>
                             <h3>Phone number</h3>
-                            <input type="text" class="input" style="width: 50px;">
-                            <input type="text" class="input" style="width: 345px;">
+                            <input id="phone" type="text" class="input" style="width: 345px;">
                         </div>
                     </div>
                     
                     <div>
-                        <input type="checkbox">Sign in to save your details
+                        <input type="checkbox" id="save-details">
+                        <label for="save-details">Sign in to save your details</label>
                     </div>
                 </div>
             </div>
@@ -174,9 +174,46 @@
             e.preventDefault();
             window.location.href = `/booking/selection.html?${params.toString()}`;
         };
-        
-        document.getElementById("confirm-btn").onclick = () => {
-            window.location.href = `/booking/payment.html?${params.toString()}`;
+
+        document.getElementById("confirm-btn").onclick = async () => {
+            const firstName = document.getElementById("first-name").value.trim();
+            const lastName  = document.getElementById("last-name").value.trim();
+            const email     = document.getElementById("email").value.trim();
+            const phone     = document.getElementById("phone").value.trim();
+            const saveDetails = document.getElementById("save-details").checked;
+
+            if (!firstName || !lastName || !email || !phone || !saveDetails) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            try {
+                const res = await fetch("/api/bookings", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id_room_type: params.get("id_room_type"),
+                    check_in:     checkIn,
+                    check_out:    checkOut,
+                    num_guests:   guests,
+                    total_price:  grandTotal.toFixed(2),
+                })
+                });
+
+                const data = await res.json();
+
+                if (data.id_booking) {
+                    params.set("id_booking", data.id_booking);
+                    params.set("grand_total", grandTotal.toFixed(2));
+                    window.location.href = `/booking/payment.html?${params.toString()}`;
+                } else {
+                    alert("Something went wrong. Please try again.");
+                }
+
+            } catch (err) {
+                console.error(err);
+                alert("Failed to create booking. Please try again.");
+            }
         };
     </script>
 
