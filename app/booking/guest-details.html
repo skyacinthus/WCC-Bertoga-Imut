@@ -10,7 +10,7 @@
     <div class="stepper">
         <div class="step active">
             <div class="circle">1</div>
-            <p>Your selection</p>
+            <p id="change-selection-link" class="step-label">Your selection</p>
         </div>
 
         <div class="line"></div>
@@ -35,14 +35,13 @@
             <div class="card">
                 
                 <div class="image-container">
-                    <img src="public/img1.jpg" class="room-image">
+                    <img id="room-image" class="room-image">
                 </div>
 
                 <div>
-                    <p>★ ★ ★ ★ ★</p>
-                    <h3>Deluxe room for 3 people</h3>
-                    <p>1 King Bed • 32m²</p>
-                    <p>Free Wi-Fi • Breakfast included</p>
+                    <h3 id="room-type-name"></h3>
+                    <p id="room-capacity"></p>
+                    <p id="room-facilities"></p>
                 </div>
             </div>
 
@@ -52,24 +51,28 @@
                 <div class="booking-date">
                     <div>
                         <p>Check-in</p>
-                        <h3>Fri, May 15, 2026</h3>
+                        <h3 id="check-in-display"></h3>
                     </div>
 
                     <div>
                         <p>Check-out</p>
-                        <h3>Fri, May 15, 2026</h3>
+                        <h3 id="check-out-display"></h3>
+                    </div>
+                    <div>
+                        <p>Guests</p>
+                        <h3 id="guests-display"></h3>
                     </div>
                 </div>
 
-                <a href="/booking/selection.html">Want to change the date?</a>
-
+                <a id="change-selection-link" href="/booking/selection.html">Want to change the date?</a>
+                
             </div>
 
             <div class="card">
                 <h3>Your pricing details</h3>
                 <div class="price-row">
-                    <p>Rooms</p>
-                    <p>IDR 1,110,988</p>
+                    <p id="nights-label"></p>
+                    <p id="room-price"></p>
                 </div>
 
                 <div class="price-row">
@@ -79,14 +82,14 @@
 
                 <div class="price-row">
                     <p>Tax (10%)</p>
-                    <p>IDR 11,088</p>
+                    <p id="tax-amount"></p>
                 </div>
 
                 <div class="grey-line"></div>
 
                 <div class="price-row">
                     <h3>TOTAL</h3>
-                    <h3>IDR 11,088</h3>
+                    <h3 id="grand-total"></h3>
                 </div>
 
             </div>
@@ -128,10 +131,55 @@
                     </div>
                 </div>
             </div>
-            <button class="button" onclick="window.location.href='/booking/payment.html'">Confirm</button>
-
+            <button id="confirm-btn" class="button">Confirm</button>
         </div>
 
     </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        const roomType   = params.get("room_type");
+        const capacity   = params.get("capacity");
+        const facilities = params.get("facilities");
+        const checkIn    = params.get("check_in");
+        const checkOut   = params.get("check_out");
+        const nights     = params.get("nights");
+        const totalPrice = parseFloat(params.get("total_price")) || 0;
+        const imageUrl   = params.get("image_url");
+        const guests     = params.get("guests");
+
+        const tax        = totalPrice * 0.1;
+        const grandTotal = totalPrice + tax;
+
+        const formatDate = (d) => new Date(d).toLocaleDateString("en-US", {
+        weekday: "short", year: "numeric", month: "short", day: "numeric"
+        });
+
+        const formatIDR = (n) => `IDR ${Math.round(n).toLocaleString("id-ID")}`;
+
+        if (imageUrl) document.getElementById("room-image").src = "/" + imageUrl;
+
+        document.getElementById("room-type-name").textContent    = roomType || "-";
+        document.getElementById("room-capacity").textContent     = capacity ? `${capacity} Persons` : "-";
+        document.getElementById("room-facilities").textContent   = facilities || "-";
+        document.getElementById("check-in-display").textContent  = checkIn ? formatDate(checkIn) : "-";
+        document.getElementById("check-out-display").textContent = checkOut ? formatDate(checkOut) : "-";
+        document.getElementById("guests-display").textContent    = guests ? `${guests} Guest${guests > 1 ? "s" : ""}` : "-";
+        document.getElementById("nights-label").textContent      = nights ? `${roomType} • ${nights} Night${nights > 1 ? "s" : ""}` : "-";
+        document.getElementById("room-price").textContent        = formatIDR(totalPrice);
+        document.getElementById("tax-amount").textContent         = formatIDR(tax);
+        document.getElementById("grand-total").textContent       = formatIDR(grandTotal);
+
+        //janlup ganti ini kalo mau pke tombol back
+        document.getElementById("change-selection-link").onclick = (e) => {
+            e.preventDefault();
+            window.location.href = `/booking/selection.html?${params.toString()}`;
+        };
+        
+        document.getElementById("confirm-btn").onclick = () => {
+            window.location.href = `/booking/payment.html?${params.toString()}`;
+        };
+    </script>
 
 </body>
