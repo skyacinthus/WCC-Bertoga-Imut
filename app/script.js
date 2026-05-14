@@ -75,6 +75,7 @@ function renderRooms(rooms, checkIn, checkOut, guests) {
       room_type: room.room_type_name,
       price: room.price,
       capacity: room.capacity,
+      facilities: room.facilities || "",
       image_url: room.image_url || "",
       nights: nights,
       total_price: totalPrice,
@@ -134,12 +135,6 @@ function calcNights(checkIn, checkOut) {
   return Math.max(1, Math.round((new Date(checkOut) - new Date(checkIn)) / msPerDay));
 }
 
-
-// ========================
-// SELECT ROOM
-// if no dates yet (rooms method), show modal first
-// if dates exist (date method), go straight to selection page
-// ========================
 function selectRoom(selectionParams, roomId, needsDates) {
   if (needsDates) {
     openDateModal(roomId, selectionParams);
@@ -148,15 +143,12 @@ function selectRoom(selectionParams, roomId, needsDates) {
   }
 }
 
-// ========================
-// DATE MODAL (rooms method)
-// ========================
+// DATE MODAL 
 async function openDateModal(roomId, existingParams) {
   document.getElementById("modal-overlay").style.display = "flex";
   document.getElementById("modal-room-id").value = roomId;
   document.getElementById("modal-existing-params").value = existingParams;
 
-  // fetch booked dates for this room to block them
   try {
     const res = await fetch(`/api/rooms/${roomId}/booked-dates`);
     const bookedDates = await res.json();
@@ -189,7 +181,6 @@ function confirmModalDates() {
     return;
   }
 
-  // check if selected dates overlap with any booked dates
   const conflict = (window._bookedDates || []).some(b => {
     return new Date(checkIn) < new Date(b.check_out) &&
            new Date(checkOut) > new Date(b.check_in);
@@ -202,7 +193,6 @@ function confirmModalDates() {
 
   const nights = calcNights(checkIn, checkOut);
 
-  // get room data from existing params to rebuild properly
   const existing = new URLSearchParams(document.getElementById("modal-existing-params").value);
   const price = existing.get("price");
   const totalPrice = nights * parseFloat(price);
