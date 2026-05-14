@@ -133,3 +133,92 @@ function calcNights(checkIn, checkOut) {
   const msPerDay = 1000 * 60 * 60 * 24;
   return Math.max(1, Math.round((new Date(checkOut) - new Date(checkIn)) / msPerDay));
 }
+
+
+// ========================
+// SELECT ROOM
+// if no dates yet (rooms method), show modal first
+// if dates exist (date method), go straight to selection page
+// ========================
+function selectRoom(selectionParams, roomId, needsDates) {
+  if (needsDates) {
+    openDateModal(roomId, selectionParams);
+  } else {
+    window.location.href = `/booking/selection.html?${selectionParams}`;
+  }
+}
+
+// ========================
+// DATE MODAL (rooms method)
+// ========================
+async function openDateModal(roomId, existingParams) {
+  document.getElementById("modal-overlay").style.display = "flex";
+  document.getElementById("modal-room-id").value = roomId;
+  document.getElementById("modal-existing-params").value = existingParams;
+
+  // fetch booked dates for this room to block them
+  try {
+    const res = await fetch(`/api/rooms/${roomId}/booked-dates`);
+    const bookedDates = await res.json();
+    window._bookedDates = bookedDates; // store for validation
+  } catch (err) {
+    console.error("Failed to fetch booked dates", err);
+  }
+}
+
+function closeDateModal() {
+  document.getElementById("modal-overlay").style.display = "none";
+  document.getElementById("modal-check-in").value = "";
+  document.getElementById("modal-check-out").value = "";
+  document.getElementById("modal-guests").value = "";
+}
+
+function confirmModalDates() {
+  const checkIn = document.getElementById("modal-check-in").value;
+  const checkOut = document.getElementById("modal-check-out").value;
+  const guests = document.getElementById("modal-guests").value;
+  const roomId = document.getElementById("modal-room-id").value;
+
+  if (!checkIn || !checkOut || !guests) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  if (new Date(checkOut) <= new Date(checkIn)) {
+    alert("Check-out must be after check-in.");
+    return;
+  }
+
+  // check if selected dates overlap with any booked dates
+  const conflict = (window._bookedDates || []).some(b => {
+    return new Date(checkIn) < new Date(b.check_out) &&
+           new Date(checkOut) > new Date(b.check_in);
+  });
+
+  if (conflict) {
+    alert("These dates are already booked. Please choose different dates.");
+    return;
+  }
+
+  const nights = calcNights(checkIn, checkOut);
+
+  // get room data from existing params to rebuild properly
+  const existing = new URLSearchParams(document.getElementById("modal-existing-params").value);
+  const price = existing.get("price");
+  const totalPrice = nights * parseFloat(price);
+
+  const finalParams = new URLSearchParams({
+    id_room: roomId,
+    room_type: existing.get("room_type"),
+    price: price,
+    capacity: existing.get("capacity"),
+    image_url: existing.get("image_url"),
+    nights: nights,
+    total_price: totalPrice,
+    check_in: checkIn,
+    check_out: checkOut,
+    guests: guests,
+  });
+
+  window.location.href = `/booking/selection.html?${finalParams}`;
+}
