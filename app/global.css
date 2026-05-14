@@ -483,11 +483,25 @@ background-image:
   z-index:999; 
   justify-content:center; 
   align-items:center;
+  background:rgba(0,0,0,0.5);
+}
+
+#modal-content {
   background:white; 
-  padding:32px; 
-  border-radius:12px; 
-  min-width:320px; 
-  display:flex; 
-  flex-direction:column; 
-  gap:16px;
+  padding: 32px;
+  border-radius: 12px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#modal-content button {
+  background: #4a351c;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
 }

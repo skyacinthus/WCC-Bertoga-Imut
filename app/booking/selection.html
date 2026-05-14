@@ -32,14 +32,13 @@
         
         <div class="card-selection">
             <div class="image-container">
-                <img src="public/img1.jpg" class="room-image">
+                <img id="room-image" class="room-image">
             </div>
             
             <div>
-                    <p>★ ★ ★ ★ ★</p>
-                    <h3>Deluxe room for 3 people</h3>
-                    <p>1 King Bed • 32m²</p>
-                    <p>Free Wi-Fi • Breakfast included</p>
+                <h3 id="room-type-name"></h3>
+                <p id="room-capacity"></p>
+                <p id="room-facilities"></p>
             </div>
 
             <div class="grey-line"></div>
@@ -47,22 +46,24 @@
             <div class="booking-date-selection">
                 <div>
                     <p>Check-in</p>
-                    <h3>Fri, May 15, 2026</h3>
-                    <input type="date">
+                    <h3 id="check-in-display"></h3>
                 </div>
 
                 <div>
                     <p>Check-out</p>
-                    <h3>Fri, May 15, 2026</h3>
-                    <input type="date">
+                    <h3 id="check-out-display"></h3>
+                </div>
+                <div>
+                    <p>Guests</p>
+                    <h3 id="guests-display"></h3>
                 </div>
             </div>
 
             <div class="grey-line"></div>
 
             <div class="price-row">
-                <p>Deluxe 3 Nights</p>
-                <h3>IDR 11,088,000</h3>
+                <p id="nights-label"></p>
+                <h3 id="total-price"></h3>
             </div>
 
             <a href="/#rooms">Change selection?</a>
@@ -73,4 +74,41 @@
     <div class="button-container">    
         <button class="btn-selection" onclick="window.location.href='/booking/guest-details.html'">Confirm</button>
     </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        const roomType   = params.get("room_type");
+        const capacity   = params.get("capacity");
+        const facilities = params.get("facilities");
+        const checkIn    = params.get("check_in");
+        const checkOut   = params.get("check_out");
+        const nights     = params.get("nights");
+        const totalPrice = params.get("total_price");
+        const imageUrl   = params.get("image_url");
+        const guests     = params.get("guests");
+
+        const formatDate = (d) => new Date(d).toLocaleDateString("en-US", {
+        weekday: "short", year: "numeric", month: "short", day: "numeric"
+        });
+
+        if (imageUrl) document.getElementById("room-image").src = "/" + imageUrl;
+
+        document.getElementById("room-type-name").textContent   = roomType || "-";
+        document.getElementById("room-capacity").textContent    = capacity ? `${capacity} Persons` : "-";
+        document.getElementById("room-facilities").textContent  = facilities || "-";
+        document.getElementById("check-in-display").textContent  = checkIn ? formatDate(checkIn) : "-";
+        document.getElementById("check-out-display").textContent = checkOut ? formatDate(checkOut) : "-";
+        document.getElementById("guests-display").textContent   = guests ? `${guests} Guest${guests > 1 ? "s" : ""}` : "-";
+        document.getElementById("nights-label").textContent     = nights ? `${roomType} • ${nights} Night${nights > 1 ? "s" : ""}` : "-";
+        document.getElementById("total-price").textContent      = totalPrice
+        ? `IDR ${Number(totalPrice).toLocaleString("id-ID")}`
+        : "-";
+
+        document.getElementById("confirm-btn").onclick = () => {
+        window.location.href = `/booking/guest-details.html?${params.toString()}`;
+        };
+    </script>
 </body>
+
+
