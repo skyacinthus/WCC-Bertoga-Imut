@@ -22,19 +22,19 @@ app.get("/rooms-page", (req, res) => {
 // GET ALL ROOMS (rooms method - no date filter)
 // ========================
 app.get("/api/rooms", (req, res) => {
-  const sql = `
+const sql = `
     SELECT 
-      r.id_room,
-      r.room_number,
-      r.status,
+      rt.id_room_type,
       rt.room_type_name,
       rt.capacity,
       rt.facilities,
       rt.price,
-      rt.image_url
-    FROM rooms r
-    JOIN room_types rt ON r.id_room_type = rt.id_room_type
+      rt.image_url,
+      COUNT(r.id_room) as total_rooms
+    FROM room_types rt
+    JOIN rooms r ON rt.id_room_type = r.id_room_type
     WHERE r.status != 'maintenance'
+    GROUP BY rt.id_room_type
   `;
   db.query(sql, (err, result) => {
     if (err) return res.status(500).json({ error: "Failed to fetch rooms" });
@@ -55,26 +55,26 @@ app.get("/api/rooms/available", (req, res) => {
 
   const sql = `
     SELECT 
-      r.id_room,
-      r.room_number,
-      r.status,
+      rt.id_room_type,
       rt.room_type_name,
       rt.capacity,
       rt.facilities,
       rt.price,
-      rt.image_url
-    FROM rooms r
-    JOIN room_types rt ON r.id_room_type = rt.id_room_type
+      rt.image_url,
+      COUNT(r.id_room) as available_rooms
+    FROM room_types rt
+    JOIN rooms r ON rt.id_room_type = r.id_room_type
     WHERE r.status != 'maintenance'
-    AND rt.capacity >= ?
     AND r.id_room NOT IN (
       SELECT id_room FROM bookings
       WHERE booking_status NOT IN ('cancelled')
       AND check_in < ? AND check_out > ?
     )
+    AND rt.capacity >= ?
+    GROUP BY rt.id_room_type
   `;
 
-  db.query(sql, [guests, check_out, check_in], (err, result) => {
+  db.query(sql, [check_out, check_in, guests], (err, result) => {
     if (err) return res.status(500).json({ error: "Failed to fetch available rooms" });
     res.json(result);
   });
@@ -159,7 +159,6 @@ app.post("/api/payments", (req, res) => {
   db.query(sql, [id_booking, payment_method], (err, result) => {
     if (err) return res.status(500).json({ error: "Failed to record payment" });
 
-    // also update booking status to confirmed
     db.query(
       `UPDATE bookings SET booking_status = 'confirmed' WHERE id_booking = ?`,
       [id_booking],
