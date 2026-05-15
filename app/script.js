@@ -6,9 +6,6 @@ function scrollGallery(direction) {
 
 
 window.addEventListener("DOMContentLoaded", () => {
-  if (sessionStorage.getItem("pendingRoom")) {
-  document.querySelector(".submit-btn").textContent = "Book Now";
-  }
   const urlParams = new URLSearchParams(window.location.search);
   const ci = urlParams.get("check_in");
   const co = urlParams.get("check_out");
@@ -27,74 +24,44 @@ window.addEventListener("DOMContentLoaded", () => {
 
 // CHECK-IN FORM, Check Availability button
 function checkAvailability() {
-  const checkIn = document.getElementById("check-in").value;
-  const checkOut = document.getElementById("check-out").value;
-  const guests = document.getElementById("guests").value;
+  const checkIn  = document.getElementById("check-in")?.value || null;
+  const checkOut = document.getElementById("check-out")?.value || null;
+  const guests   = document.getElementById("guests")?.value || null;
+  const building = document.getElementById("building")?.value || null;
 
-  if (!checkIn || !checkOut || !guests) {
-    alert("Please fill in all fields.");
-    return;
-  }
-
-  if (new Date(checkOut) <= new Date(checkIn)) {
+  if (checkIn && checkOut && new Date(checkOut) <= new Date(checkIn)) {
     alert("Check-out must be after check-in.");
     return;
   }
 
-  const pendingRoom = sessionStorage.getItem("pendingRoom");
-  if (pendingRoom) {
-    const existing = new URLSearchParams(pendingRoom);
-    const roomTypeId = existing.get("id_room_type");
-    const nights = calcNights(checkIn, checkOut);
-    const totalPrice = nights * parseFloat(existing.get("price"));
-
-    fetch(`/api/rooms/available?check_in=${checkIn}&check_out=${checkOut}&guests=${guests}`)
-      .then(res => res.json())
-      .then(availableRooms => {
-        const isAvailable = availableRooms.some(r => r.id_room_type == roomTypeId);
-
-        if (!isAvailable) {
-          alert("Sorry, this room is not available for the selected dates. Please choose different dates or select another room.");
-          sessionStorage.removeItem("pendingRoom");
-          document.querySelector(".submit-btn").textContent = "Check Availability";
-          fetchRooms();
-          document.getElementById("check-in").scrollIntoView({ behavior: "smooth" });
-          return;
-        }
-
-        // room is available, go to selection
-        sessionStorage.removeItem("pendingRoom");
-        document.querySelector(".submit-btn").textContent = "Check Availability";
-
-        existing.set("check_in", checkIn);
-        existing.set("check_out", checkOut);
-        existing.set("guests", guests);
-        existing.set("nights", nights);
-        existing.set("total_price", totalPrice);
-
-        window.location.href = `/booking/selection.html?${existing.toString()}`;
-      })
-      .catch(err => {
-        console.error(err);
-        alert("Failed to check availability. Please try again.");
-      });
-
-    return;
-  }
-
-  fetchRooms(checkIn, checkOut, guests);
-  document.getElementById("check-in").scrollIntoView({ behavior: "smooth" });
+  fetchRooms(checkIn, checkOut, guests, building);
+  document.getElementById("booking").scrollIntoView({ behavior: "smooth" });
 }
 
 // FETCH ROOMS
-async function fetchRooms(checkIn = null, checkOut = null, guests = null) {
+async function fetchRooms(checkIn = null, checkOut = null, guests = null, building = null) {
   const container = document.getElementById("rooms-list");
   container.innerHTML = "<p>Loading rooms...</p>";
 
+  const params = new URLSearchParams();
+
   let url = "/api/rooms";
-  if (checkIn && checkOut && guests) {
-    url = `/api/rooms/available?check_in=${checkIn}&check_out=${checkOut}&guests=${guests}`;
+  if (checkIn && checkOut) {
+    url = "/api/rooms/available";
+    params.set("check_in", checkIn);
+    params.set("check_out", checkOut);
+    if (guests) params.set("guests", guests);
   }
+
+  if (guests && guests > 0) {
+    params.set("guests", guests);
+  }
+
+  if (building && building !== "") {
+    params.set("building", building);
+  }
+  const query = params.toString();
+  if (query) url += `?${query}`;
 
   try {
     const res = await fetch(url);
@@ -148,6 +115,8 @@ function renderRooms(rooms, checkIn, checkOut, guests) {
       <div class="room-info">
         <span class="badge">
           <i class="fa-solid fa-circle-info"></i> Room ${room.room_number}
+
+          <i class="fa-solid fa-location-dot"></i> ${room.building}
         </span>
 
         <h2>${room.room_type_name}</h2>
@@ -168,7 +137,7 @@ function renderRooms(rooms, checkIn, checkOut, guests) {
           ? `<span>${nights} nights: IDR ${Number(totalPrice).toLocaleString("id-ID")}</span>`
           : "<span>Includes Taxes & Fees</span>"
         }
-      <button onclick="selectRoom('${selectionParams}', ${room.id_room_type}, ${!checkIn})">
+      <button onclick="selectRoom('${selectionParams}')">
         Select
       </button>
       </div>
@@ -178,17 +147,81 @@ function renderRooms(rooms, checkIn, checkOut, guests) {
   });
 }
 
-function selectRoom(selectionParams, roomId, needsDates) {
-  if (needsDates) {
-    document.querySelector(".submit-btn").textContent = "Book Now";
-    sessionStorage.setItem("pendingRoom", selectionParams);
-    document.querySelector("#home").scrollIntoView({ behavior: "smooth" });
+async function selectRoom(selectionParams) {
+  const checkIn  = document.getElementById("check-in")?.value || null;
+  const checkOut = document.getElementById("check-out")?.value || null;
+
+  if (checkIn && checkOut) {
+    // dates already filled, check availability first
+    const existing = new URLSearchParams(selectionParams);
+    const roomTypeId = existing.get("id_room_type");
+    const guests = document.getElementById("guests")?.value || 1;
+    const nights = calcNights(checkIn, checkOut);
+    const building = document.getElementById("building")?.value || null;
+    const totalPrice = nights * parseFloat(existing.get("price"));
+
+    try {
+      const res = await fetch(`/api/rooms/available?check_in=${checkIn}&check_out=${checkOut}&guests=${guests}${building ? `&building=${building}` : ""}`);      
+      const availableRooms = await res.json();
+      const isAvailable = availableRooms.some(r => r.id_room_type == roomTypeId);
+
+      if (!isAvailable) {
+        alert("Sorry, this room is not available for the selected dates. Please choose different dates.");
+        return;
+      }
+
+      existing.set("check_in", checkIn);
+      existing.set("check_out", checkOut);
+      existing.set("guests", guests);
+      existing.set("nights", nights);
+      existing.set("total_price", totalPrice);
+      window.location.href = `/booking/selection.html?${existing.toString()}`;
+
+    } catch (err) {
+      console.error(err);
+      alert("Failed to check availability. Please try again.");
+    }
+
   } else {
-    window.location.href = `/booking/selection.html?${selectionParams}`;
+    // no dates yet, open modal
+    document.getElementById("modal-params").value = selectionParams;
+    document.getElementById("modal-overlay").style.display = "flex";
   }
 }
 
 function calcNights(checkIn, checkOut) {
   const msPerDay = 1000 * 60 * 60 * 24;
   return Math.max(1, Math.round((new Date(checkOut) - new Date(checkIn)) / msPerDay));
+}
+
+function closeDateModal() {
+  document.getElementById("modal-overlay").style.display = "none";
+  document.getElementById("modal-check-in").value = "";
+  document.getElementById("modal-check-out").value = "";
+}
+
+function confirmModalDates() {
+  const checkIn  = document.getElementById("modal-check-in").value;
+  const checkOut = document.getElementById("modal-check-out").value;
+
+  if (!checkIn || !checkOut) {
+    alert("Please fill in both dates.");
+    return;
+  }
+
+  if (new Date(checkOut) <= new Date(checkIn)) {
+    alert("Check-out must be after check-in.");
+    return;
+  }
+
+  const existing = new URLSearchParams(document.getElementById("modal-params").value);
+  const nights = calcNights(checkIn, checkOut);
+  const totalPrice = nights * parseFloat(existing.get("price"));
+
+  existing.set("check_in", checkIn);
+  existing.set("check_out", checkOut);
+  existing.set("nights", nights);
+  existing.set("total_price", totalPrice);
+
+  window.location.href = `/booking/selection.html?${existing.toString()}`;
 }

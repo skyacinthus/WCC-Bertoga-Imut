@@ -22,7 +22,8 @@ app.get("/rooms-page", (req, res) => {
 // GET ALL ROOMS (rooms method - no date filter)
 // ========================
 app.get("/api/rooms", (req, res) => {
-  const sql = `
+  const { guests, building } = req.query;
+  let sql = `
     SELECT 
       rt.id_room_type,
       rt.room_type_name,
@@ -36,10 +37,18 @@ app.get("/api/rooms", (req, res) => {
     FROM room_types rt
     JOIN rooms r ON rt.id_room_type = r.id_room_type
     WHERE r.status != 'maintenance'
-    GROUP BY rt.id_room_type
   `;
-  db.query(sql, (err, result) => {
-    if (err) return res.status(500).json({ error: "Failed to fetch rooms" });
+
+  const params = [];
+  if (guests) { sql += ` AND rt.capacity >= ?`; params.push(guests); }
+  if (building) { sql += ` AND rt.building = ?`; params.push(building); }
+  sql += ` GROUP BY rt.id_room_type`;
+
+  db.query(sql, params, (err, result) => {
+    if (err) {
+      console.error("SQL error:", err);
+      return res.status(500).json({ error: "Failed to fetch rooms" });
+    }
     res.json(result);
   });
 });
@@ -49,9 +58,9 @@ app.get("/api/rooms", (req, res) => {
 // query params: check_in, check_out, guests
 // ========================
 app.get("/api/rooms/available", (req, res) => {
-  const { check_in, check_out, guests } = req.query;
+  const { check_in, check_out, guests, building } = req.query;
 
-  if (!check_in || !check_out || !guests) {
+  if (!check_in || !check_out) {
     return res.status(400).json({ error: "check_in, check_out, and guests are required" });
   }
 
