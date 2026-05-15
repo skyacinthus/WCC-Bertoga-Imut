@@ -15,46 +15,14 @@
     <ul>
       <li><a href="#home">Home</a></li> 
       <li><a href="#about">About us</a></li>
-      <li><a href="#rooms">Rooms</a></li>
+      <li><a href="#booking-section">Booking</a></li>
+      <li><a href="#gallery-section">Gallery</a></li>
     </ul>
   </nav>
   
   <!-- HERO -->
   <section id="home" class="hero-section">
     <h1>Welcome</h1>
-  </section>
-
-  <!-- BOOKING -->
-  <section class="booking-section">
-    <div class="booking-card">
-
-      <div class="booking-container">
-        <i class="fa-solid fa-calendar" style="font-size: 32px;"></i>        
-        <div class="input-group">
-          <div class="text-content">
-            <h2>Check In & Check Out</h2>
-            <input id="check-in" type="date"> -
-            <input id="check-out" type="date">
-          </div>
-        </div>
-      </div>
-
-      <hr class="divider">
-
-      <div class="booking-container">
-        <i class="fa-solid fa-user" style="font-size: 32px;"></i>
-        
-        <div class="input-group">
-          <div class="text-content">
-            <h2>Travellers</h2>
-            <input id="guests" type="number" placeholder="Number of travellers">
-          </div>
-        </div>
-      </div>
-
-      <button class="submit-btn" onclick="checkAvailability()">Check Availability</button>
- 
-    </div>
   </section>
 
   <!-- ABOUT -->
@@ -68,8 +36,63 @@
       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
       Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
     </p>
+  </section>
 
-    <div class="gallery-wrapper">
+  <!-- BOOKING -->
+  <section class="booking-section" id="booking-section">
+    <div class="booking-card" id="booking">
+    <div class="filter-row">
+        <div class="booking-container">
+          <i class="fa-solid fa-calendar" style="font-size: 32px;"></i>        
+          <div class="input-group">
+            <div class="text-content">
+              <h2>Check In & Check Out</h2>
+              <input id="check-in" class="modal-box" type="date"> -
+              <input id="check-out" class="modal-box" type="date">
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-container">
+          <i class="fa-solid fa-building" style="font-size: 32px;"></i>
+          <div class="input-group">
+            <div class="text-content">
+              <h2>Location</h2>
+              <select id="building">
+                <option value="">Any</option>
+                <option value="Alodie 1">Alodie 1</option>
+                <option value="Alodie 2">Alodie 2</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-container">
+          <i class="fa-solid fa-user" style="font-size: 32px;"></i>
+
+          <div class="input-group">
+            <div class="text-content">
+              <h2>Guests</h2>
+              <input id="guests" type="number" placeholder="Number of guests" min="1">
+            </div>
+
+          </div>
+        </div>
+      </div>
+    <button class="submit-btn" onclick="checkAvailability()">Find the room for you!</button>
+
+    </div>
+    
+    <div id="rooms">
+      <h1>ROOMS</h1>
+      <div class="rooms-list" id="rooms-list">
+    </div>
+  </div>
+  </section>
+
+  <section id="gallery-section">
+      <h1>GALLERY</h1>
+      <div class="gallery-wrapper">
 
       <button class="arrow left" onclick="scrollGallery(-1)">‹</button>
 
@@ -88,35 +111,20 @@
     </div>
   </section>
 
- <!-- ROOMS -->
-  <section id="rooms">
-    <h1>Discover our room selection</h1>
-
-    <div class="rooms-list" id="rooms-list">
-    </div>
-
-  </section>
-
   <div id="modal-overlay">
-    <div id="modal-content">
-      <h2>Select Your Dates</h2>
-
+    <div id="modal-box">
+      <h2>When are you staying?</h2>
+      <p>Select your check-in and check-out dates to continue.</p>
       <label>Check In</label>
       <input type="date" id="modal-check-in">
-
       <label>Check Out</label>
       <input type="date" id="modal-check-out">
-
-      <label>Guests</label>
-      <input type="number" id="modal-guests" min="1" placeholder="Enter number of guests">
-
-      <input type="hidden" id="modal-room-id">
-      <input type="hidden" id="modal-existing-params">
-
-      <button onclick="confirmModalDates()">Confirm</button>
+      <input type="hidden" id="modal-params">
+      <button onclick="confirmModalDates()">Continue</button>
       <button onclick="closeDateModal()">Cancel</button>
-    </div>  
+    </div>
   </div>
+
 
 <script src="script.js"></script>
   <!-- FOOTER -->

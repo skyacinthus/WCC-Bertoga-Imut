@@ -23,22 +23,33 @@ app.get("/rooms-page", (req, res) => {
 // GET ALL ROOMS (rooms method - no date filter)
 // ========================
 app.get("/api/rooms", (req, res) => {
-const sql = `
+  const { guests, building } = req.query;
+  let sql = `
     SELECT 
       rt.id_room_type,
       rt.room_type_name,
       rt.capacity,
       rt.facilities,
       rt.price,
+      rt.installment_price,
+      rt.building,
       rt.image_url,
       COUNT(r.id_room) as total_rooms
     FROM room_types rt
     JOIN rooms r ON rt.id_room_type = r.id_room_type
     WHERE r.status != 'maintenance'
-    GROUP BY rt.id_room_type
   `;
-  db.query(sql, (err, result) => {
-    if (err) return res.status(500).json({ error: "Failed to fetch rooms" });
+
+  const params = [];
+  if (guests) { sql += ` AND rt.capacity >= ?`; params.push(guests); }
+  if (building) { sql += ` AND rt.building = ?`; params.push(building); }
+  sql += ` GROUP BY rt.id_room_type`;
+
+  db.query(sql, params, (err, result) => {
+    if (err) {
+      console.error("SQL error:", err);
+      return res.status(500).json({ error: "Failed to fetch rooms" });
+    }
     res.json(result);
   });
 });
@@ -48,9 +59,9 @@ const sql = `
 // query params: check_in, check_out, guests
 // ========================
 app.get("/api/rooms/available", (req, res) => {
-  const { check_in, check_out, guests } = req.query;
+  const { check_in, check_out, guests, building } = req.query;
 
-  if (!check_in || !check_out || !guests) {
+  if (!check_in || !check_out) {
     return res.status(400).json({ error: "check_in, check_out, and guests are required" });
   }
 
@@ -61,6 +72,8 @@ app.get("/api/rooms/available", (req, res) => {
       rt.capacity,
       rt.facilities,
       rt.price,
+      rt.installment_price,
+      rt.building,
       rt.image_url,
       COUNT(r.id_room) as available_rooms
     FROM room_types rt
@@ -105,40 +118,80 @@ app.get("/api/rooms/:id/booked-dates", (req, res) => {
 // CREATE BOOKING
 // ========================
 app.post("/api/bookings", (req, res) => {
-  const { id_room, check_in, check_out, num_guests, total_price } = req.body;
+  const { id_room_type, check_in, check_out, num_guests, total_price, email, first_name, last_name, phone } = req.body;
 
-  // id_user is null for now until you build auth
-  const sql = `
-    INSERT INTO bookings (id_user, id_room, check_in, check_out, num_guests, total_price, booking_status)
-    VALUES (NULL, ?, ?, ?, ?, ?, 'pending')
-  `;
+  const findUserSql = `SELECT id_user FROM users WHERE email = ?`;
 
-db.query(insertSql, [id_room, check_in, check_out, num_guests, total_price], (err, result) => {
-  if (err) return res.status(500).json({ error: "Failed to create booking" });
+  db.query(findUserSql, [email], (err, users) => {
+    if (err) return res.status(500).json({ error: "Failed to find user" });
 
-  const id_booking = result.insertId;
+    const saveBooking = (id_user) => {
+      const findRoomSql = `
+        SELECT id_room FROM rooms
+        WHERE id_room_type = ?
+        AND status != 'maintenance'
+        AND id_room NOT IN (
+          SELECT id_room FROM bookings
+          WHERE booking_status NOT IN ('cancelled')
+          AND check_in < ? AND check_out > ?
+        )
+        LIMIT 1
+      `;
 
-  // fetch booking details for email
-  const detailSql = `
-    SELECT b.*, r.room_number, rt.room_type_name
-    FROM bookings b
-    JOIN rooms r ON b.id_room = r.id_room
-    JOIN room_types rt ON r.id_room_type = rt.id_room_type
-    WHERE b.id_booking = ?
-  `;
+      db.query(findRoomSql, [id_room_type, check_out, check_in], (err, rooms) => {
+        if (err) return res.status(500).json({ error: "Failed to find room" });
+        if (rooms.length === 0) return res.status(409).json({ error: "No rooms available for these dates" });
 
-  db.query(detailSql, [id_booking], async (err, rows) => {
-    if (!err && rows.length > 0) {
-      try {
-        await sendBookingConfirmation(email, rows[0]);
-      } catch (mailErr) {
-        console.error("Email failed:", mailErr);
-      }
+        const id_room = rooms[0].id_room;
+
+        const insertSql = `
+          INSERT INTO bookings (id_user, id_room, check_in, check_out, num_guests, total_price, booking_status)
+          VALUES (?, ?, ?, ?, ?, ?, 'pending')
+        `;
+
+        db.query(insertSql, [id_user, id_room, check_in, check_out, num_guests, total_price], (err, result) => {
+          if (err) return res.status(500).json({ error: "Failed to create booking" });
+
+          const id_booking = result.insertId;
+          res.json({ id_booking, id_room });
+
+          const detailSql = `
+            SELECT b.*, r.room_number, rt.room_type_name
+            FROM bookings b
+            JOIN rooms r ON b.id_room = r.id_room
+            JOIN room_types rt ON r.id_room_type = rt.id_room_type
+            WHERE b.id_booking = ?
+          `;
+
+          db.query(detailSql, [id_booking], async (err, rows) => {
+            if (!err && rows.length > 0) {
+              try {
+                await sendBookingConfirmation(email, rows[0]);
+                console.log(`Confirmation email sent to ${email}`);
+              } catch (mailErr) {
+                console.error("Email failed:", mailErr);
+              }
+            }
+          });
+        });
+      });
+    };
+
+    if (users.length > 0) {
+      saveBooking(users[0].id_user);
+    } else {
+      const insertUserSql = `
+        INSERT INTO users (name, email, phone, password)
+        VALUES (?, ?, ?, NULL)
+      `;
+      const name = `${first_name} ${last_name}`;
+
+      db.query(insertUserSql, [name, email, phone], (err, result) => {
+        if (err) return res.status(500).json({ error: "Failed to create user" });
+        saveBooking(result.insertId);
+      });
     }
   });
-
-  res.json({ id_booking, id_room });
-});
 });
 
 // ========================
@@ -195,4 +248,11 @@ app.post("/api/payments", (req, res) => {
 
 app.listen(3000, () => {
   console.log("Server running at http://localhost:3000");
+});
+
+app.get("/api/room-types", (req, res) => {
+  db.query("SELECT id_room_type, room_type_name FROM room_types", (err, result) => {
+    if (err) return res.status(500).json({ error: "Failed to fetch room types" });
+    res.json(result);
+  });
 });

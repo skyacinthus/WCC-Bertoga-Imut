@@ -27,7 +27,7 @@ async function sendBookingConfirmation(toEmail, bookingDetails) {
   const formatIDR = (n) => `IDR ${Number(n).toLocaleString("id-ID")}`;
 
   await transporter.sendMail({
-    from: '"Stay Lounge" <noreply@staylounge.com>',
+    from: '"Alodie" <noreply@alodie.com>',
     to: toEmail,
     subject: `Booking Confirmed — #${id_booking}`,
     html: `

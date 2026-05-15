@@ -78,8 +78,6 @@ h1 {
 
   background-size: cover;     
   background-position: center; 
-  
-  padding: 0;
 
 background-image: 
     linear-gradient(to bottom, rgba(245, 241, 230, 0) 80%, rgba(245, 241, 230, 1) 100%), url('/public/img1.jpg'); 
@@ -114,8 +112,10 @@ background-image:
 }
 
 .booking-card h2 {
-    font-size: 1.5rem; 
-    color: grey;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8a7060;
 }
 
 .booking-container{
@@ -124,24 +124,33 @@ background-image:
   gap: 20px;
 
   align-items: center;
+  flex: 1;
 }
 
-.booking-card input {
-    font-size: 20px; 
-    padding: 3px;
-
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-
-    border: 0;
-    border-radius: 8px;
-
-    transition: 0.3s ease;
-
+.booking-container i {
+  font-size: 18px;
+  color: #9d7360;
+  flex-shrink: 0;
 }
 
-.booking-card input:hover{
-    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+.booking-card input, .booking-card select {
+  font-size: 20px; 
+  padding: 3px;
+
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+
+  border: 0;
+  border-radius: 8px;
+
+  transition: 0.3s ease;
+  color: #2f2f2f;
+  background: transparent;
+}
+
+.booking-card input:hover, .booking-card select:hover{
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+  opacity: 0.7;
 }
 
 .submit-btn {
@@ -164,6 +173,14 @@ background-image:
 
 .submit-btn:hover {
   background-color: #9d7360;
+}
+
+.filter-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .divider{
@@ -217,7 +234,7 @@ background-image:
   margin-left: -50vw;
   margin-right: -50vw;
   padding-bottom: 3rem;
-  padding-top: 3rem;
+  padding-top: 1rem;
   overflow: hidden;
 
   scroll-snap-type: x mandatory;
@@ -261,8 +278,7 @@ background-image:
 
 /* ROOMS */
 #rooms {
-  padding: 80px;
-  background: #F5F1E8;
+  padding: 50px;
 
   display: flex;
   flex-direction: column;
@@ -271,8 +287,12 @@ background-image:
 
 #rooms h1 {
   text-align: center;
-  font-size: 42px;
-  margin-bottom: 40px;
+  font-size: 30px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #3D2B1F;
+  letter-spacing: 0.08em;
+
 }
 
 .rooms-list {
@@ -477,31 +497,86 @@ background-image:
 }
 
 #modal-overlay {
-  display:none; 
-  position:fixed; 
-  inset:0; 
-  z-index:999; 
-  justify-content:center; 
-  align-items:center;
-  background:rgba(0,0,0,0.5);
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
 }
 
-#modal-content {
-  background:white; 
-  padding: 32px;
-  border-radius: 12px;
-  min-width: 320px;
+#modal-box {
+  background: white;
+  padding: 36px;
+  border-radius: 20px;
+  min-width: 360px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
-#modal-content button {
-  background: #4a351c;
+#modal-box h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #3D2B1F;
+}
+
+#modal-box p {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+#modal-box label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8a7060;
+}
+
+#modal-box input[type="date"] {
+  border: 1px solid #e0d9cf;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 15px;
+  width: 100%;
+  outline: none;
+  color: #2f2f2f;
+}
+
+#modal-box input[type="date"]:focus {
+  border-color: #3D2B1F;
+}
+
+#modal-box button:first-of-type {
+  background: #3D2B1F;
   color: white;
   border: none;
-  padding: 14px 28px;
   border-radius: 10px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: bold;
+  margin-top: 8px;
+  transition: 0.3s;
+}
+
+#modal-box button:first-of-type:hover {
+  background: #9d7360;
+}
+
+#modal-box button:last-of-type {
+  background: transparent;
+  color: #888;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  padding: 4px;
+}
+
+#modal-box button:last-of-type:hover {
+  color: #3D2B1F;
 }
