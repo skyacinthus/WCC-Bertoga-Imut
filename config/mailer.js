@@ -34,7 +34,7 @@ async function sendBookingConfirmation(toEmail, bookingDetails) {
       <div style="font-family: Inter, sans-serif; max-width: 600px; margin: auto; padding: 32px; background: #f9f6f1; border-radius: 16px;">
         
         <h1 style="color: #3D2B1F; font-size: 28px;">Booking Confirmed!</h1>
-        <p style="color: #666; margin-top: 8px;">Thank you for booking with Stay Lounge. Here are your details:</p>
+        <p style="color: #666; margin-top: 8px;">Thank you for booking with Alodie. Here are your details:</p>
 
         <div style="background: white; border-radius: 12px; padding: 24px; margin-top: 24px;">
           <p style="color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;">Booking ID</p>
@@ -70,7 +70,7 @@ async function sendBookingConfirmation(toEmail, bookingDetails) {
         </div>
 
         <p style="color: #888; font-size: 13px; margin-top: 24px; text-align: center;">
-          Stay Lounge — Jl. Wijaya Kusuma, Condongcatur, Sleman, Yogyakarta
+          Alodie — Jl. Wijaya Kusuma, Condongcatur, Sleman, Yogyakarta
         </p>
 
       </div>
