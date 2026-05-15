@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const app = express();
+const { sendBookingConfirmation } = require("./config/mailer");
 
 app.use(cors());
 app.use(express.json());
@@ -112,10 +113,32 @@ app.post("/api/bookings", (req, res) => {
     VALUES (NULL, ?, ?, ?, ?, ?, 'pending')
   `;
 
-  db.query(sql, [id_room, check_in, check_out, num_guests, total_price], (err, result) => {
-    if (err) return res.status(500).json({ error: "Failed to create booking" });
-    res.json({ id_booking: result.insertId });
+db.query(insertSql, [id_room, check_in, check_out, num_guests, total_price], (err, result) => {
+  if (err) return res.status(500).json({ error: "Failed to create booking" });
+
+  const id_booking = result.insertId;
+
+  // fetch booking details for email
+  const detailSql = `
+    SELECT b.*, r.room_number, rt.room_type_name
+    FROM bookings b
+    JOIN rooms r ON b.id_room = r.id_room
+    JOIN room_types rt ON r.id_room_type = rt.id_room_type
+    WHERE b.id_booking = ?
+  `;
+
+  db.query(detailSql, [id_booking], async (err, rows) => {
+    if (!err && rows.length > 0) {
+      try {
+        await sendBookingConfirmation(email, rows[0]);
+      } catch (mailErr) {
+        console.error("Email failed:", mailErr);
+      }
+    }
   });
+
+  res.json({ id_booking, id_room });
+});
 });
 
 // ========================
