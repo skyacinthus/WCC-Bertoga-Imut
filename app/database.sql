@@ -28,6 +28,9 @@ CREATE TABLE room_types (
     capacity INT NOT NULL,
     facilities TEXT,
     price DECIMAL(10,2) NOT NULL
+    installment_price DECIMAL(10,2) NOT NULL,
+    building VARCHAR(50),
+
     image_url VARCHAR(255)
 );
 

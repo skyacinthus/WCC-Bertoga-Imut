@@ -22,13 +22,15 @@ app.get("/rooms-page", (req, res) => {
 // GET ALL ROOMS (rooms method - no date filter)
 // ========================
 app.get("/api/rooms", (req, res) => {
-const sql = `
+  const sql = `
     SELECT 
       rt.id_room_type,
       rt.room_type_name,
       rt.capacity,
       rt.facilities,
       rt.price,
+      rt.installment_price,
+      rt.building,
       rt.image_url,
       COUNT(r.id_room) as total_rooms
     FROM room_types rt
@@ -60,6 +62,8 @@ app.get("/api/rooms/available", (req, res) => {
       rt.capacity,
       rt.facilities,
       rt.price,
+      rt.installment_price,
+      rt.building,
       rt.image_url,
       COUNT(r.id_room) as available_rooms
     FROM room_types rt
@@ -172,4 +176,11 @@ app.post("/api/payments", (req, res) => {
 
 app.listen(3000, () => {
   console.log("Server running at http://localhost:3000");
+});
+
+app.get("/api/room-types", (req, res) => {
+  db.query("SELECT id_room_type, room_type_name FROM room_types", (err, result) => {
+    if (err) return res.status(500).json({ error: "Failed to fetch room types" });
+    res.json(result);
+  });
 });

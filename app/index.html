@@ -39,24 +39,59 @@
         </div>
       </div>
 
-      <hr class="divider">
+    <hr class="divider">
 
-      <div class="booking-container">
-        <i class="fa-solid fa-user" style="font-size: 32px;"></i>
-        
-        <div class="input-group">
-          <div class="text-content">
-            <h2>Travellers</h2>
-            <input id="guests" type="number" placeholder="Number of travellers">
+    <div class="filter-row">
+        <div class="booking-container">
+          <i class="fa-solid fa-building" style="font-size: 32px;"></i>
+          <div class="input-group">
+            <div class="text-content">
+              <h2>Location</h2>
+              <select id="filter-building">
+                <option value="">Any</option>
+                <option value="Alodie 1">Alodie 1</option>
+                <option value="Alodie 2">Alodie 2</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-container">
+          <i class="fa-solid fa-house" style="font-size: 32px;"></i>
+          <div class="input-group">
+            <div class="text-content">
+              <h2>Room Type</h2>
+              <select id="filter-room-type">
+                <option value="">Any</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-container">
+          <i class="fa-solid fa-user" style="font-size: 32px;"></i>
+
+          <div class="input-group">
+            <div class="text-content">
+              <h2>Guests</h2>
+              <input id="guests" type="number" placeholder="Number of guests" min="1">
+            </div>
+
           </div>
         </div>
       </div>
-
       <button class="submit-btn" onclick="checkAvailability()">Check Availability</button>
- 
     </div>
   </section>
 
+ <!-- ROOMS -->
+  <section id="rooms">
+    <h1>Discover our room selection</h1>
+
+    <div class="rooms-list" id="rooms-list">
+    </div>
+
+  </section>
   <!-- ABOUT -->
   <section id="about">
     <h2 style="font-size: 40px; font-weight: bold;">
@@ -87,36 +122,6 @@
 
     </div>
   </section>
-
- <!-- ROOMS -->
-  <section id="rooms">
-    <h1>Discover our room selection</h1>
-
-    <div class="rooms-list" id="rooms-list">
-    </div>
-
-  </section>
-
-  <div id="modal-overlay">
-    <div id="modal-content">
-      <h2>Select Your Dates</h2>
-
-      <label>Check In</label>
-      <input type="date" id="modal-check-in">
-
-      <label>Check Out</label>
-      <input type="date" id="modal-check-out">
-
-      <label>Guests</label>
-      <input type="number" id="modal-guests" min="1" placeholder="Enter number of guests">
-
-      <input type="hidden" id="modal-room-id">
-      <input type="hidden" id="modal-existing-params">
-
-      <button onclick="confirmModalDates()">Confirm</button>
-      <button onclick="closeDateModal()">Cancel</button>
-    </div>  
-  </div>
 
 <script src="script.js"></script>
   <!-- FOOTER -->

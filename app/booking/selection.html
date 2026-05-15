@@ -66,7 +66,7 @@
                 <h3 id="total-price"></h3>
             </div>
 
-            <a href="/#rooms">Change selection?</a>
+            <a href="/#rooms" id="change-selection-link">Change selection?</a>
 
         </div>
     </div>
@@ -104,6 +104,8 @@
         document.getElementById("total-price").textContent      = totalPrice
         ? `IDR ${Number(totalPrice).toLocaleString("id-ID")}`
         : "-";
+
+        document.getElementById("change-selection-link").href = `/?check_in=${checkIn}&check_out=${checkOut}&guests=${guests}#rooms`;
 
         const confirmElements = document.querySelectorAll(".confirm-btn");
 
