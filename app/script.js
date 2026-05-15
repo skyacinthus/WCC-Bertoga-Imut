@@ -53,10 +53,6 @@ async function fetchRooms(checkIn = null, checkOut = null, guests = null, buildi
     if (guests) params.set("guests", guests);
   }
 
-  if (guests && guests > 0) {
-    params.set("guests", guests);
-  }
-
   if (building && building !== "") {
     params.set("building", building);
   }
@@ -100,6 +96,7 @@ function renderRooms(rooms, checkIn, checkOut, guests) {
       capacity: room.capacity,
       facilities: room.facilities || "",
       image_url: room.image_url || "",
+      building: room.building,
       nights: nights,
       total_price: totalPrice,
       ...(checkIn && { check_in: checkIn }),
@@ -222,6 +219,9 @@ function confirmModalDates() {
   existing.set("check_out", checkOut);
   existing.set("nights", nights);
   existing.set("total_price", totalPrice);
+  existing.set("guests", document.getElementById("guests")?.value || 1);
+  const b = document.getElementById("building")?.value;
+  if (b) existing.set("building", b);
 
   window.location.href = `/booking/selection.html?${existing.toString()}`;
 }

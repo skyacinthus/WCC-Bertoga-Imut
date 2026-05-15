@@ -40,6 +40,7 @@
 
                 <div>
                     <h3 id="room-type-name"></h3>
+                    <p id="room-building"></p>
                     <p id="room-capacity"></p>
                     <p id="room-facilities"></p>
                 </div>
@@ -122,11 +123,7 @@
                             <input id="phone" type="text" class="input" style="width: 345px;">
                         </div>
                     </div>
-                    
-                    <div>
-                        <input type="checkbox" id="save-details">
-                        <label for="save-details">Sign in to save your details</label>
-                    </div>
+                
                 </div>
             </div>
             <button id="confirm-btn" class="button">Confirm</button>
@@ -146,6 +143,7 @@
         const totalPrice = parseFloat(params.get("total_price")) || 0;
         const imageUrl   = params.get("image_url");
         const guests     = params.get("guests");
+        const building   = params.get("building");
 
         const tax        = totalPrice * 0.1;
         const grandTotal = totalPrice + tax;
@@ -168,6 +166,7 @@
         document.getElementById("room-price").textContent        = formatIDR(totalPrice);
         document.getElementById("tax-amount").textContent         = formatIDR(tax);
         document.getElementById("grand-total").textContent       = formatIDR(grandTotal);
+        document.getElementById("room-building").textContent    = building ? ` ${building}` : "";
 
         //janlup ganti ini kalo mau pke tombol back
         const confirmElements = document.querySelectorAll(".change-selection-link");
@@ -183,9 +182,8 @@
             const lastName  = document.getElementById("last-name").value.trim();
             const email     = document.getElementById("email").value.trim();
             const phone     = document.getElementById("phone").value.trim();
-            const saveDetails = document.getElementById("save-details").checked;
-
-            if (!firstName || !lastName || !email || !phone || !saveDetails) {
+            
+            if (!firstName || !lastName || !email || !phone) {
                 alert("Please fill in all fields.");
                 return;
             }
@@ -200,6 +198,10 @@
                     check_out:    checkOut,
                     num_guests:   guests,
                     total_price:  grandTotal.toFixed(2),
+                    email: email,
+                    first_name: document.getElementById("first-name").value.trim(),
+                    last_name: document.getElementById("last-name").value.trim(),
+                    phone: document.getElementById("phone").value.trim()
                 })
                 });
 

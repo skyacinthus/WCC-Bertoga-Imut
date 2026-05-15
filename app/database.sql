@@ -15,7 +15,7 @@ CREATE TABLE users (
     id_user INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    password VARCHAR(255),
     phone VARCHAR(20)
 );
 
@@ -28,7 +28,7 @@ CREATE TABLE room_types (
     capacity INT NOT NULL,
     facilities TEXT,
     price DECIMAL(10,2) NOT NULL
-    installment_price DECIMAL(10,2) NOT NULL,
+    installment_price DECIMAL(10,2),
     building VARCHAR(50),
 
     image_url VARCHAR(255)

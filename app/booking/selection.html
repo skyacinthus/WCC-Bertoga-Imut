@@ -37,6 +37,7 @@
             
             <div>
                 <h3 id="room-type-name"></h3>
+                <p id="room-building"></p>
                 <p id="room-capacity"></p>
                 <p id="room-facilities"></p>
             </div>
@@ -87,6 +88,7 @@
         const totalPrice = params.get("total_price");
         const imageUrl   = params.get("image_url");
         const guests     = params.get("guests");
+        const building   = params.get("building");
 
         const formatDate = (d) => new Date(d).toLocaleDateString("en-US", {
         weekday: "short", year: "numeric", month: "short", day: "numeric"
@@ -101,9 +103,8 @@
         document.getElementById("check-out-display").textContent = checkOut ? formatDate(checkOut) : "-";
         document.getElementById("guests-display").textContent   = guests ? `${guests} Guest${guests > 1 ? "s" : ""}` : "-";
         document.getElementById("nights-label").textContent     = nights ? `${roomType} • ${nights} Night${nights > 1 ? "s" : ""}` : "-";
-        document.getElementById("total-price").textContent      = totalPrice
-        ? `IDR ${Number(totalPrice).toLocaleString("id-ID")}`
-        : "-";
+        document.getElementById("total-price").textContent      = totalPrice ? `IDR ${Number(totalPrice).toLocaleString("id-ID")}` : "-";
+        document.getElementById("room-building").textContent = building ? `${building}` : "";
 
         document.getElementById("change-selection-link").href = `/?check_in=${checkIn}&check_out=${checkOut}&guests=${guests}#rooms`;
 

@@ -117,17 +117,58 @@ app.get("/api/rooms/:id/booked-dates", (req, res) => {
 // CREATE BOOKING
 // ========================
 app.post("/api/bookings", (req, res) => {
-  const { id_room, check_in, check_out, num_guests, total_price } = req.body;
+  const { id_room_type, check_in, check_out, num_guests, total_price, email, first_name, last_name, phone } = req.body;
 
-  // id_user is null for now until you build auth
-  const sql = `
-    INSERT INTO bookings (id_user, id_room, check_in, check_out, num_guests, total_price, booking_status)
-    VALUES (NULL, ?, ?, ?, ?, ?, 'pending')
-  `;
+  const findUserSql = `SELECT id_user FROM users WHERE email = ?`;
 
-  db.query(sql, [id_room, check_in, check_out, num_guests, total_price], (err, result) => {
-    if (err) return res.status(500).json({ error: "Failed to create booking" });
-    res.json({ id_booking: result.insertId });
+  db.query(findUserSql, [email], (err, users) => {
+    if (err) return res.status(500).json({ error: "Failed to find user" });
+
+    const saveBooking = (id_user) => {
+      const findRoomSql = `
+        SELECT id_room FROM rooms
+        WHERE id_room_type = ?
+        AND status != 'maintenance'
+        AND id_room NOT IN (
+          SELECT id_room FROM bookings
+          WHERE booking_status NOT IN ('cancelled')
+          AND check_in < ? AND check_out > ?
+        )
+        LIMIT 1
+      `;
+
+      db.query(findRoomSql, [id_room_type, check_out, check_in], (err, rooms) => {
+        if (err) return res.status(500).json({ error: "Failed to find room" });
+        if (rooms.length === 0) return res.status(409).json({ error: "No rooms available for these dates" });
+
+        const id_room = rooms[0].id_room;
+
+        const insertSql = `
+          INSERT INTO bookings (id_user, id_room, check_in, check_out, num_guests, total_price, booking_status)
+          VALUES (?, ?, ?, ?, ?, ?, 'pending')
+        `;
+
+        db.query(insertSql, [id_user, id_room, check_in, check_out, num_guests, total_price], (err, result) => {
+          if (err) return res.status(500).json({ error: "Failed to create booking" });
+          res.json({ id_booking: result.insertId, id_room });
+        });
+      });
+    };
+
+    if (users.length > 0) {
+      saveBooking(users[0].id_user);
+    } else {
+      const insertUserSql = `
+        INSERT INTO users (name, email, phone, password)
+        VALUES (?, ?, ?, NULL)
+      `;
+      const name = `${first_name} ${last_name}`;
+
+      db.query(insertUserSql, [name, email, phone], (err, result) => {
+        if (err) return res.status(500).json({ error: "Failed to create user" });
+        saveBooking(result.insertId);
+      });
+    }
   });
 });
 
