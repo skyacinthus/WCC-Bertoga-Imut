@@ -93,3 +93,30 @@ CREATE TABLE payments (
     FOREIGN KEY (id_booking)
     REFERENCES bookings(id_booking)
 );
+
+-- ========================
+-- ROOM TYPES
+-- ========================
+INSERT INTO room_types (room_type_name, capacity, facilities, price, installment_price, building, image_url) VALUES
+('Family - Alodie 1',      4, 'AC, WiFi, Breakfast, Pet Friendly, Kids Playground',        500000.00, 450000.00, 'Alodie 1', 'public/img1.jpg'),
+('Non Family - Alodie 1',  2, 'AC, WiFi, Breakfast, Pet Friendly, Kids Playground',                               350000.00, 300000.00, 'Alodie 1', 'public/img2.jpg'),
+('White - Alodie 1',       2, 'AC, WiFi, Breakfast, Pet Friendly, Kids Playground',                      450000.00, 400000.00, 'Alodie 1', 'public/img3.jpg'),
+('Kiddos - Alodie 1',      2, 'AC, WiFi, Breakfast, Pet Friendly, Kids Playground',              350000.00, 300000.00, 'Alodie 1', 'public/img4.jpg'),
+('Classic - Alodie 1',     2, 'AC, WiFi, Breakfast, Pet Friendly',                               350000.00, 300000.00, 'Alodie 1', 'public/img5.jpg'),
+('Non Family - Alodie 2',  2, 'AC, WiFi, Breakfast, Kids Playground',                               350000.00, 300000.00, 'Alodie 2', 'public/img6.jpg'),
+('Classic - Alodie 2',     2, 'AC, WiFi, Breakfast, Kids Playground',                  450000.00, 400000.00, 'Alodie 2', 'public/img7.jpg');
+
+-- ========================
+-- ROOMS
+-- ========================
+INSERT INTO rooms (id_room_type, room_number, status) VALUES
+(1, 'A1-F01',  'available'),
+(2, 'A1-NF01', 'available'),
+(3, 'A1-W01',  'available'),
+(4, 'A1-K01',  'available'),
+(4, 'A1-K02',  'available'),
+(5, 'A1-C01',  'available'),
+(6, 'A2-NF01', 'available'),
+(6, 'A2-NF02', 'available'),
+(6, 'A2-NF03', 'available'),
+(7, 'A2-C01',  'available');

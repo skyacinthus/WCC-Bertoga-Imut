@@ -66,7 +66,7 @@
                     </div>
 
                     <div>
-                        <p>Check-out</p>
+                        <p>Nights</p>
                         <h3 id="nights-label"></h3>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
             <div class="card">
                 <h3>Your pricing details</h3>
                 <div class="price-row">
-                    <p id="nights-label"></p>
+                    <p id="price-label"></p>
                     <p id="room-price"></p>
                 </div>
 
@@ -172,7 +172,8 @@
         document.getElementById("check-in-display").textContent  = checkIn ? formatDate(checkIn) : "-";
         document.getElementById("check-out-display").textContent = checkOut ? formatDate(checkOut) : "-";
         document.getElementById("guests-display").textContent    = guests ? `${guests} Guest${guests > 1 ? "s" : ""}` : "-";
-        document.getElementById("nights-label").textContent      = nights ? `${roomType} • ${nights} Night${nights > 1 ? "s" : ""}` : "-";
+        document.getElementById("nights-label").textContent      = nights ? `${nights} Night${nights > 1 ? "s" : ""}` : "-";
+        document.getElementById("price-label").textContent      = nights ? `${roomType} • ${nights} Night${nights > 1 ? "s" : ""}` : "-";
         document.getElementById("room-price").textContent        = formatIDR(totalPrice);
         document.getElementById("tax-amount").textContent         = formatIDR(tax);
         document.getElementById("grand-total").textContent       = formatIDR(grandTotal);

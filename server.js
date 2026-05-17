@@ -65,7 +65,7 @@ app.get("/api/rooms/available", (req, res) => {
     return res.status(400).json({ error: "check_in, check_out, and guests are required" });
   }
 
-  const sql = `
+  let sql = `
     SELECT 
       rt.id_room_type,
       rt.room_type_name,
@@ -84,12 +84,18 @@ app.get("/api/rooms/available", (req, res) => {
       WHERE booking_status NOT IN ('cancelled')
       AND check_in < ? AND check_out > ?
     )
-    AND rt.capacity >= ?
-    GROUP BY rt.id_room_type
   `;
 
-  db.query(sql, [check_out, check_in, guests], (err, result) => {
-    if (err) return res.status(500).json({ error: "Failed to fetch available rooms" });
+  const params = [check_out, check_in];
+  if (guests) { sql += ` AND rt.capacity >= ?`; params.push(guests); }
+  if (building) { sql += ` AND rt.building = ?`; params.push(building); }
+  sql += ` GROUP BY rt.id_room_type`;
+
+  db.query(sql, params, (err, result) => {
+    if (err) {
+      console.error("SQL error:", err);
+      return res.status(500).json({ error: "Failed to fetch available rooms" });
+    }
     res.json(result);
   });
 });
