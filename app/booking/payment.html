@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
   <link rel="stylesheet" href="booking.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+
 </head>
 
 <body>
@@ -29,13 +33,370 @@
         
     </div>
 
-    <div class="payment-layout">
-        <div class="card">
-            <h3>Payment mehthod</h3>
+    <div class="details-layout">
 
-            <button class="button" onclick="window.location.href='/booking/guest-details.html'">Back</button>
+        <div class="left-section">
+         
+            <div class="card">
+                
+                <div class="image-container">
+                    <img id="room-image" class="room-image">
+                </div>
+
+                <div>
+                    <h3 id="room-type-name"></h3>
+                    <span id="room-building"></span> ● <span id="room-capacity"></span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Your booking details</h3>
+                
+                <div class="booking-date">
+                    <div>
+                        <p>Check-in</p>
+                        <h3 id="check-in-display"></h3>
+                    </div>
+
+                    <div>
+                        <p>Check-out</p>
+                        <h3 id="check-out-display"></h3>
+                    </div>
+                </div>
+
+                <div class="booking-date">
+                    <div>
+                        <p>Guests</p>
+                        <h3 id="guests-display"></h3>
+                    </div>
+
+                    <div>
+                        <p>Nights</p>
+                        <h3 id="nights-label"></h3>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="card">
+                <h3>Your pricing details</h3>
+                <div class="price-row">
+                    <p id="price-label"></p>
+                    <p id="room-price"></p>
+                </div>
+
+                <div class="price-row">
+                    <p>Add-ons</p>
+                    <p>IDR 0</p>
+                </div>
+
+                <div class="price-row">
+                    <p>Tax (10%)</p>
+                    <p id="tax-amount"></p>
+                </div>
+
+                <div class="grey-line"></div>
+
+                <div class="price-row">
+                    <h3>TOTAL</h3>
+                    <h3 id="grand-total"></h3>
+                </div>
+
+            </div>
         </div>
 
+        <div class="right-section">
+
+            <div class="countdown-section">
+                <i class="fa-solid fa-clock"></i>
+                <span>Complete payment in</span>
+                <span id="countdown" class="countdown-timer">60:00</span>
+            </div>
+
+            <div class="card" style="padding: 10px; display: flex; flex-direction: row; gap: 10px;">
+                <i class="fa-solid fa-circle-info"></i>
+                <span> Please complete your payment within 1 hour.</span>
+            </div>
+
+            <div class="card">
+                <div class="payment-method-section" style="margin-bottom: 20px;">
+                    <label>Payment Method</label>
+
+                    <!-- Bank Transfer -->
+                    <div class="method-group">
+                        <p class="method-title">Bank Transfer</p>
+                        <div class="method-options">
+
+                        <input type="radio" name="payment" id="bca" value="bca" hidden>
+                        <label class="method-card" for="bca">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" alt="BCA">
+                            <span>BCA</span>
+                        </label>
+
+                        <input type="radio" name="payment" id="mandiri" value="mandiri" hidden>
+                        <label class="method-card" for="mandiri">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg" alt="Mandiri">
+                            <span>Mandiri</span>
+                        </label>
+
+                        <input type="radio" name="payment" id="bni" value="bni" hidden>
+                        <label class="method-card" for="bni">
+                            <span style="font-size: 18px; font-weight: 800; color: #f77f00;">bni</span>
+                            <span>BNI</span>
+                        </label>
+
+                        </div>
+                    </div>
+
+                    <!-- E-Wallet -->
+                    <div class="method-group">
+                        <p class="method-title">E-Wallet</p>
+                        <div class="method-options">
+
+                        <input type="radio" name="payment" id="gopay" value="gopay" hidden>
+                        <label class="method-card" for="gopay">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GoPay">
+                            <span>GoPay</span>
+                        </label>
+
+                        <input type="radio" name="payment" id="ovo" value="ovo" hidden>
+                        <label class="method-card" for="ovo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo_purple.svg" alt="OVO">
+                            <span>OVO</span>
+                        </label>
+
+                        <input type="radio" name="payment" id="dana" value="dana" hidden>
+                        <label class="method-card" for="dana">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA">
+                            <span>DANA</span>
+                        </label>
+
+                        </div>
+                    </div>
+                </div>      
+                
+                <div class="payment-info" id="payment-info" style="display: none;">
+
+                    <!-- Bank Transfer Info -->
+                    <div class="bank-info" id="bank-info" style="display: none;">
+                        <p class="method-title">Transfer to</p>
+                        <div class="account-box">
+                        <span class="account-number" id="account-number">1234567890</span>
+                        <button onclick="copyAccount()" class="copy-btn">
+                            <i class="fa-solid fa-copy"></i> Copy
+                        </button>
+                        </div>
+                        <span class="account-name" id="account-name">a.n Stay Lounge</span>
+                    </div>
+
+                    <!-- QR Code -->
+                    <div class="qr-info" id="qr-info" style="display: none;">
+                        <p class="method-title">Scan QR Code</p>
+                        <img id="qr-image" src="" alt="QR Code" class="qr-img">
+                    </div>
+
+                </div>
+            
+                <div class="upload-section" style="margin-top: 20px;">
+                    <label>Upload Payment Proof</label>
+                    <label class="upload-label" for="payment-proof">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Click to upload screenshot</span>
+                    </label>
+                    <input type="file" id="payment-proof" accept="image/*" onchange="previewImage(this)">
+                    <img class="upload-preview" id="preview-img">
+                </div>
+
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 5px; width: 100%; margin-top: 5px;">
+                <button id="confirm-btn" class="button" onclick="confirmPayment()">Confirm</button>
+            </div>
+
+
+        </div>
+
+        <div id="success-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; justify-content: center; align-items: center;">
+            <div style="background: white; border-radius: 20px; padding: 40px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; max-width: 360px;">
+                <i class="fa-solid fa-circle-check" style="font-size: 60px; color: #2D5A27;"></i>
+                <h2 style="color: #1A2E1A;">Booking Confirmed!</h2>
+                <p style="color: #888; font-size: 14px;">Your payment has been received. We'll see you soon! 🌿</p>
+                <button onclick="window.location.href='/'" style="background: #2D5A27; color: white; border: none; border-radius: 10px; padding: 14px 30px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%;">
+                Back to Home
+                </button>
+            </div>
+        </div>
     </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        const roomType   = params.get("room_type");
+        const capacity   = params.get("capacity");
+        const facilities = params.get("facilities");
+        const checkIn    = params.get("check_in");
+        const checkOut   = params.get("check_out");
+        const nights     = params.get("nights");
+        const totalPrice = parseFloat(params.get("total_price")) || 0;
+        const imageUrl   = params.get("image_url");
+        const guests     = params.get("guests");
+        const building   = params.get("building");
+
+        const tax        = totalPrice * 0.1;
+        const grandTotal = totalPrice + tax;
+
+        const formatDate = (d) => new Date(d).toLocaleDateString("en-US", {
+        weekday: "short", year: "numeric", month: "short", day: "numeric"
+        });
+
+        const formatIDR = (n) => `IDR ${Math.round(n).toLocaleString("id-ID")}`;
+
+        if (imageUrl) document.getElementById("room-image").src = "/" + imageUrl;
+
+        document.getElementById("room-type-name").textContent    = roomType || "-";
+        document.getElementById("room-capacity").textContent     = capacity ? `${capacity} Persons` : "-";
+        document.getElementById("check-in-display").textContent  = checkIn ? formatDate(checkIn) : "-";
+        document.getElementById("check-out-display").textContent = checkOut ? formatDate(checkOut) : "-";
+        document.getElementById("guests-display").textContent    = guests ? `${guests} Guest${guests > 1 ? "s" : ""}` : "-";
+        document.getElementById("nights-label").textContent      = nights ? `${nights} Night${nights > 1 ? "s" : ""}` : "-";
+        document.getElementById("price-label").textContent      = nights ? `${roomType} • ${nights} Night${nights > 1 ? "s" : ""}` : "-";
+        document.getElementById("room-price").textContent        = formatIDR(totalPrice);
+        document.getElementById("tax-amount").textContent         = formatIDR(tax);
+        document.getElementById("grand-total").textContent       = formatIDR(grandTotal);
+        document.getElementById("room-building").textContent    = building ? ` ${building}` : "";
+
+        //janlup ganti ini kalo mau pke tombol back
+
+        //tamabahin ya sal HEHE ga paham
+        const confirmElements = document.querySelectorAll(".change-selection-link");
+
+        confirmElements.forEach(element => {
+            element.onclick = () => {
+                window.location.href = `/booking/selection.html?${params.toString()}`;
+            };
+        });
+
+        document.getElementById("confirm-btn").onclick = async () => {
+            const firstName = document.getElementById("first-name").value.trim();
+            const lastName  = document.getElementById("last-name").value.trim();
+            const email     = document.getElementById("email").value.trim();
+            const phone     = document.getElementById("phone").value.trim();
+            
+            if (!firstName || !lastName || !email || !phone) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            try {
+                const res = await fetch("/api/bookings", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id_room_type: params.get("id_room_type"),
+                    check_in:     checkIn,
+                    check_out:    checkOut,
+                    num_guests:   guests,
+                    total_price:  grandTotal.toFixed(2),
+                    email: email,
+                    first_name: document.getElementById("first-name").value.trim(),
+                    last_name: document.getElementById("last-name").value.trim(),
+                    phone: document.getElementById("phone").value.trim()
+                })
+                });
+
+                const data = await res.json();
+
+                if (data.id_booking) {
+                    params.set("id_booking", data.id_booking);
+                    params.set("grand_total", grandTotal.toFixed(2));
+                    window.location.href = `/booking/payment.html?${params.toString()}`;
+                } else {
+                    alert("Something went wrong. Please try again.");
+                }
+
+            } catch (err) {
+                console.error(err);
+                alert("Failed to create booking. Please try again.");
+            }
+        };
+
+        function startCountdown(minutes = 60) {
+        let total = minutes * 60;
+        const el = document.getElementById('countdown');
+
+        const timer = setInterval(() => {
+            const m = Math.floor(total / 60).toString().padStart(2, '0');
+            const s = (total % 60).toString().padStart(2, '0');
+            el.textContent = `${m}:${s}`;
+
+            if (total <= 0) {
+            clearInterval(timer);
+            el.textContent = "00:00";
+            alert("Payment time expired! Please try again.");
+            window.location.href = "/"; // redirect ke home
+            }
+
+            total--;
+        }, 1000);
+        }
+
+        startCountdown(60);
+
+
+        const paymentData = {
+        bca:     { type: 'bank', number: '1234567890', name: 'a.n Stay Lounge' },
+        mandiri: { type: 'bank', number: '1270012112007', name: 'a.n Stay Lounge' },
+        bni:     { type: 'bank', number: '1122334455', name: 'a.n Stay Lounge' },
+        gopay:   { type: 'qr', image: './public/qr-gopay.png' },
+        ovo:     { type: 'qr', image: './public/qr-ovo.png' },
+        dana:    { type: 'qr', image: './public/qr-dana.png' },
+        };
+
+        document.querySelectorAll('input[name="payment"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            const data = paymentData[radio.value];
+            const paymentInfo = document.getElementById('payment-info');
+            const bankInfo = document.getElementById('bank-info');
+            const qrInfo = document.getElementById('qr-info');
+
+            paymentInfo.style.display = 'block';
+
+            if (data.type === 'bank') {
+            bankInfo.style.display = 'flex';
+            qrInfo.style.display = 'none';
+            document.getElementById('account-number').textContent = data.number;
+            document.getElementById('account-name').textContent = data.name;
+            } else {
+            bankInfo.style.display = 'none';
+            qrInfo.style.display = 'flex';
+            document.getElementById('qr-image').src = data.image;
+            }
+        });
+        });
+
+        function copyAccount() {
+        const number = document.getElementById('account-number').textContent;
+        navigator.clipboard.writeText(number);
+        alert('Account number copied!');
+        }
+
+        function confirmPayment() {
+            const proof = document.getElementById('payment-proof').files[0];
+            const method = document.querySelector('input[name="payment"]:checked');
+
+            if (!method) {
+                alert('Please select a payment method!');
+                return;
+            }
+            if (!proof) {
+                alert('Please upload your payment proof!');
+                return;
+            }
+
+            // show success modal
+            const modal = document.getElementById('success-modal');
+            modal.style.display = 'flex';
+        }
+    </script>
 
 </body>
