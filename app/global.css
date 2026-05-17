@@ -47,6 +47,46 @@ nav ul li a:hover {
   text-decoration: underline;
   opacity: 0.5;
 }
+/* HAMBURGER */
+.hamburger {
+  display: none;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+/* RESPONSIVE NAVBAR */
+@media (max-width: 768px) {
+
+  nav {
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+
+    background: #3E2F1C;
+
+    width: 200px;
+    padding: 20px;
+    border-radius: 10px;
+    gap: 20px;
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
 
 /*SECTION*/
 section {
