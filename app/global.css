@@ -568,7 +568,7 @@ background-image:
 #modal-box h2 {
   font-size: 22px;
   font-weight: 700;
-  color: #3D2B1F;
+  color: #2D5A27;
 }
 
 #modal-box p {
@@ -582,7 +582,7 @@ background-image:
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #8a7060;
+  color: #2D5A27;
 }
 
 #modal-box input[type="date"] {
@@ -596,7 +596,7 @@ background-image:
 }
 
 #modal-box input[type="date"]:focus {
-  border-color: #3D2B1F;
+  border-color: #2D5A27;
 }
 
 #modal-box button:first-of-type {
