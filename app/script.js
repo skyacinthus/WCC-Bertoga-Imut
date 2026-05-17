@@ -201,9 +201,12 @@ function closeDateModal() {
   document.getElementById("modal-check-out").value = "";
 }
 
-function confirmModalDates() {
+async function confirmModalDates() {
   const checkIn  = document.getElementById("modal-check-in").value;
   const checkOut = document.getElementById("modal-check-out").value;
+  const existing = new URLSearchParams(document.getElementById("modal-params").value);
+  const roomTypeId = existing.get("id_room_type");
+
 
   if (!checkIn || !checkOut) {
     alert("Please fill in both dates.");
@@ -215,7 +218,21 @@ function confirmModalDates() {
     return;
   }
 
-  const existing = new URLSearchParams(document.getElementById("modal-params").value);
+  try {
+    const res = await fetch(`/api/rooms/available?check_in=${checkIn}&check_out=${checkOut}`);
+    const availableRooms = await res.json();
+    const isAvailable = availableRooms.some(r => r.id_room_type == roomTypeId);
+
+  if (!isAvailable) {
+      alert("Sorry, this room is not available for the selected dates. Please choose different dates.");
+      return;
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Failed to check availability. Please try again.");
+    return;
+  }
+
   const nights = calcNights(checkIn, checkOut);
   const totalPrice = nights * parseFloat(existing.get("price"));
 
