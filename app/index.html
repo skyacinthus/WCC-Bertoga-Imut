@@ -112,13 +112,10 @@
         <button class="arrow left" onclick="scrollGallery(-1)">‹</button>
 
         <div class="gallery" id="gallery">
-          <img src="public/img1.jpg">
-          <img src="public/img2.jpg">
-          <img src="public/img3.jpg">
-          <img src="public/img4.jpg">
-          <img src="public/img5.jpg">
-          <img src="public/img6.jpg">
-          <img src="public/img7.jpg">
+          <img src="public/gallery1.jpg">
+          <img src="public/gallery2.jpg">
+          <img src="public/gallery3.jpg">
+          <img src="public/gallery4.jpg">
         </div>
 
         <button class="arrow right" onclick="scrollGallery(1)">›</button>
@@ -146,51 +143,55 @@
     <div class="container">
 
       <div class="footer-grid">
-
-        <!-- LEFT -->
         <div>
+        <div class="footer-header">
+          <img src="public/logo-belumfix.png" alt="Logo" width="50px">
 
-          <div class="footer-header">
-            <img src="public/logo-belumfix.png" alt="Logo" width="50px">
+          <div>
+            <h2>Stay Lounge</h2>
+            <p>An urban sanctuary surrounded by greenery</p>
+          </div>
+        </div>
+        <div class="location-switch">
+          <button onclick="changeLocation('alodie1')" class="location-btn active" id="btn-alodie1">
+            Alodie 1
+          </button>
 
-            <div>
-              <h2>Stay Lounge</h2>
-              <p>An urban sanctuary surrounded by greenery</p>
+          <button onclick="changeLocation('alodie2')" class="location-btn" id="btn-alodie2">
+            Alodie 2
+          </button>
+          </div>
+            <p class="address" id="footer-address">
+              Jl. Wijaya Kusuma, Dero,
+              Condongcatur, Kec. Depok,
+              Kabupaten Sleman,
+              Daerah Istimewa Yogyakarta 55281
+            </p>
+
+            <div class="social">
+              <a href="https://wa.me/62811269722" target="_blank" style="color: inherit; text-decoration: none;">
+                <div class="icon"><i class="fab fa-whatsapp"></i></div>
+              </a>
+              <a href="https://www.instagram.com/staylounge_/" target="_blank" style="color: inherit; text-decoration: none;">
+                <div class="icon"><i class="fab fa-instagram"></i></div>
+              </a>
+              <a href="https://www.tiktok.com/@staylounge_" target="_blank" style="color: inherit; text-decoration: none;">
+                <div class="icon"><i class="fab fa-tiktok"></i></div>
+              </a>
             </div>
           </div>
 
-          <p class="address">
-            Jl. Wijaya Kusuma, Dero,
-            Condongcatur, Kec. Depok,
-            Kabupaten Sleman,
-            Daerah Istimewa Yogyakarta 55281
-          </p>
-
-          <div class="social">
-            <a href="https://wa.me/62811269722" target="_blank" style="color: inherit; text-decoration: none;">
-              <div class="icon"><i class="fab fa-whatsapp"></i></div>
-            </a>
-            <a href="https://www.instagram.com/staylounge_/" target="_blank" style="color: inherit; text-decoration: none;">
-              <div class="icon"><i class="fab fa-instagram"></i></div>
-            </a>
-            <a href="https://www.tiktok.com/@staylounge_" target="_blank" style="color: inherit; text-decoration: none;">
-              <div class="icon"><i class="fab fa-tiktok"></i></div>
-            </a>
+          <div class="footer-right">
+            <div class="map-box">
+              <iframe
+                id="footer-map"
+                src="https://maps.google.com/maps?q=condongcatur%20sleman&t=&z=12&ie=UTF8&iwloc=&output=embed"
+                loading="lazy">
+              </iframe>
+            </div>
           </div>
 
         </div>
-
-        <!-- RIGHT -->
-        <div class="footer-right">
-          <div class="map-box">
-            <iframe
-              src="https://maps.google.com/maps?q=condongcatur%20sleman&t=&z=12&ie=UTF8&iwloc=&output=embed"
-              loading="lazy">
-            </iframe>
-          </div>
-        </div>
-
-      </div>
 
       <!-- COPYRIGHT -->
       <div class="copyright">
