@@ -8,7 +8,7 @@
 }
 
 body{
-    background-color: #F5F1E8;
+    background-color: #F0F5EE;
 }
 
 .row{
@@ -30,7 +30,7 @@ body{
     gap: 12px;
 
     padding: 30px;
-    background: #f5f2eb;
+    background: #F0F5EE;
 }
 
 .step {
@@ -43,7 +43,7 @@ body{
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    border: 3px solid #6B4F2A;
+    border: 3px solid #1A2E1A;
 
     display: flex;
     align-items: center;
@@ -52,27 +52,25 @@ body{
     font-weight: bold;
     font-size: 24px;
 
-    color: #6B4F2A;
+    color: #1A2E1A;
     background: white;
 }
-
-
 
 .step p:hover {
     cursor: pointer;
     transition: all 0.3s ease;
-    color: #837d30; 
-    text-shadow: 0 0 8px rgba(0, 123, 255, 0.4); 
+    color: #A8C5A0; 
+    /* text-shadow: 0 0 8px rgba(173, 211, 165, 0.4);  */
 }
 
 .line{
     width: 120px;
     height: 1.5px;
-    background: #6B4F2A;
+    background: #1A2E1A;
 }
 
 .step.active .circle {
-    background: #6B4F2A;
+    background: #1A2E1A;
     color: white;
 }
 
@@ -82,14 +80,6 @@ body{
 }
 
 /*MAIN LAYOUT*/
-.details-layout {
-  display: flex;
-  gap: 20px;
-
-  padding: 40px;
-  align-items: flex-start;
-}
-
 .selection-layout {
   display: flex;
   gap: 20px;
@@ -99,12 +89,31 @@ body{
   justify-content: center;
 }
 
+.details-layout {
+  display: flex;
+  gap: 20px;
+
+  padding: 40px;
+  align-items: flex-start;
+}
+
+.payment-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  padding: 40px;
+  align-items: center;
+  justify-content: center;
+}
+
 .left-section {
   width: 320px;
+  flex-shrink: 0;
 
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
 }
 
 .right-section {
@@ -116,7 +125,7 @@ body{
 }
 
 .card {
-  background: #f7f4ed;
+  background: #F0F5EE;
 
   border: 1px solid #c8c1b7;
   border-radius: 16px;
@@ -125,7 +134,7 @@ body{
 }
 
 .card-selection{
-  background: #f7f4ed;
+  background: #F0F5EE;
 
   width: 500px;
   border: 1px solid #c8c1b7;
@@ -134,10 +143,14 @@ body{
   padding: 20px;
 }
 
+.card-selection a:hover{
+  opacity: 50%;
+}
+
 
 /*SECTIONAL THINGY*/
 .image-container {
-  width: 280px;
+  width: 100%;
   height: 100px;
 
   margin-bottom: 10px;
@@ -218,13 +231,13 @@ h3 {
 }
 
 button {
-  background: #6B4F2A;
+  background: #2D5A27;
   color: white;
 
   border: none;
   border-radius: 12px;
 
-  width: fit-content;
+  width: 100%;
   padding: 14px 28px;
 
   font-size: 16px;
@@ -236,7 +249,6 @@ button {
 }
 
 button.btn-selection{
-  background: #6B4F2A;
   color: white;
 
   border: none;
@@ -251,4 +263,18 @@ button.btn-selection{
   cursor: pointer;
 
   transition: 0.3s ease;
+}
+
+button:hover{
+  background-color: #A8C5A0;
+}
+
+#cancel-btn{
+  color: #8f8577;
+  background-color: transparent;
+  border: 1px solid #d5d5d5;
+}
+
+#cancel-btn:hover{
+  color: red;
 }

@@ -40,9 +40,7 @@
 
                 <div>
                     <h3 id="room-type-name"></h3>
-                    <p id="room-building"></p>
-                    <p id="room-capacity"></p>
-                    <p id="room-facilities"></p>
+                    <span id="room-building"></span> ● <span id="room-capacity"></span>
                 </div>
             </div>
 
@@ -59,9 +57,17 @@
                         <p>Check-out</p>
                         <h3 id="check-out-display"></h3>
                     </div>
+                </div>
+
+                <div class="booking-date">
                     <div>
                         <p>Guests</p>
                         <h3 id="guests-display"></h3>
+                    </div>
+
+                    <div>
+                        <p>Check-out</p>
+                        <h3 id="nights-label"></h3>
                     </div>
                 </div>
                 
@@ -115,18 +121,23 @@
                         <div>
                             <h3>Email adress</h3>
                             <input id="email" type="text" class="input" required>
-                            <p>Confirmation email will be sent to this address</p>
+                            <p style="margin-top: 5px;">Confirmation email will be sent to this address</p>
                         </div>
 
                         <div>
                             <h3>Phone number</h3>
-                            <input id="phone" type="text" class="input" style="width: 345px;">
+                            <input id="phone" type="text" class="input">
                         </div>
                     </div>
                 
                 </div>
             </div>
-            <button id="confirm-btn" class="button">Confirm</button>
+            
+            <div style="display: flex; flex-direction: column; gap: 5px; width: 100%; margin-top: 5px;">
+                <button id="confirm-btn" class="button">Confirm</button>
+                <button id="cancel-btn" class="button" onclick="window.location.href='/booking/selection.html'">Cancel</button>
+            </div>
+
         </div>
 
     </div>
@@ -158,7 +169,6 @@
 
         document.getElementById("room-type-name").textContent    = roomType || "-";
         document.getElementById("room-capacity").textContent     = capacity ? `${capacity} Persons` : "-";
-        document.getElementById("room-facilities").textContent   = facilities || "-";
         document.getElementById("check-in-display").textContent  = checkIn ? formatDate(checkIn) : "-";
         document.getElementById("check-out-display").textContent = checkOut ? formatDate(checkOut) : "-";
         document.getElementById("guests-display").textContent    = guests ? `${guests} Guest${guests > 1 ? "s" : ""}` : "-";
@@ -169,6 +179,8 @@
         document.getElementById("room-building").textContent    = building ? ` ${building}` : "";
 
         //janlup ganti ini kalo mau pke tombol back
+
+        //tamabahin ya sal HEHE ga paham
         const confirmElements = document.querySelectorAll(".change-selection-link");
 
         confirmElements.forEach(element => {

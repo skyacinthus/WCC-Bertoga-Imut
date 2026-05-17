@@ -111,9 +111,10 @@ function renderRooms(rooms, checkIn, checkOut, guests) {
 
       <div class="room-info">
         <span class="badge">
-          <i class="fa-solid fa-circle-info"></i> Room ${room.room_number}
-
-          <i class="fa-solid fa-location-dot"></i> ${room.building}
+          <span style="display: flex; flex-direction: row; gap: 10px">
+            <i class="fa-solid fa-location-dot"></i> 
+            <span>${room.building}</span>
+          </span>
         </span>
 
         <h2>${room.room_type_name}</h2>
@@ -121,10 +122,13 @@ function renderRooms(rooms, checkIn, checkOut, guests) {
         <div class="features">${facilities}</div>
 
         <div class="meta">
-          <span><i class="fa-solid fa-user"></i> ${room.capacity} Persons</span>
+          <span style="display: flex; flex-direction: row; gap: 5px">
+            <i class="fa-solid fa-user"></i> 
+            ${room.capacity} 
+            <span>Persons</span>
+            </span>
         </div>
 
-        <a href="#">Room details</a>
       </div>
 
       <div class="room-price">
@@ -225,3 +229,17 @@ function confirmModalDates() {
 
   window.location.href = `/booking/selection.html?${existing.toString()}`;
 }
+
+//SCROLL AWARE NAVBAR
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 50) {
+    nav.style.width = 'calc(100% - 80px)';
+    nav.style.top = '20px';
+    nav.style.borderRadius = '20px';
+  } else {
+    nav.style.width = '100%';
+    nav.style.top = '0px';
+    nav.style.borderRadius = '0px';
+  }
+});

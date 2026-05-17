@@ -35,11 +35,10 @@
                 <img id="room-image" class="room-image">
             </div>
             
-            <div>
+            <div style="margin-bottom: 10px;">
                 <h3 id="room-type-name"></h3>
-                <p id="room-building"></p>
-                <p id="room-capacity"></p>
-                <p id="room-facilities"></p>
+                <span id="room-building"></span> ● 
+                <span id="room-capacity"></span>
             </div>
 
             <div class="grey-line"></div>
@@ -98,7 +97,6 @@
 
         document.getElementById("room-type-name").textContent   = roomType || "-";
         document.getElementById("room-capacity").textContent    = capacity ? `${capacity} Persons` : "-";
-        document.getElementById("room-facilities").textContent  = facilities || "-";
         document.getElementById("check-in-display").textContent  = checkIn ? formatDate(checkIn) : "-";
         document.getElementById("check-out-display").textContent = checkOut ? formatDate(checkOut) : "-";
         document.getElementById("guests-display").textContent   = guests ? `${guests} Guest${guests > 1 ? "s" : ""}` : "-";

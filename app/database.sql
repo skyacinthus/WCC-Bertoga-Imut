@@ -27,7 +27,7 @@ CREATE TABLE room_types (
     room_type_name VARCHAR(100) NOT NULL,
     capacity INT NOT NULL,
     facilities TEXT,
-    price DECIMAL(10,2) NOT NULL
+    price DECIMAL(10,2) NOT NULL,
     installment_price DECIMAL(10,2),
     building VARCHAR(50),
 

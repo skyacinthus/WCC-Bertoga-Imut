@@ -6,10 +6,12 @@
   <title>Stay Lounge - Cafe and Resto</title>
 
   <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
+
   <!-- NAVBAR -->
   <nav>
     <ul>
@@ -22,41 +24,50 @@
   
   <!-- HERO -->
   <section id="home" class="hero-section">
-    <h1>Welcome</h1>
+      <div class="content-wrap">      
+        <h1>Stay Lounge</h1>
+      </div>
   </section>
 
   <!-- ABOUT -->
   <section id="about">
-    <h2 style="font-size: 40px; font-weight: bold;">
-      Lorem ipsum dolor sit amet.
-    </h2>
+    
+    <div class="content-wrap">      
+      <h2 style="font-size: 36px; font-weight: bold; margin-bottom: 10px; color: #1A2E1A;">
+        A green escape, just for you.
+      </h2>
 
-    <p style="font-size: 24px; text-align: justify;">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-    </p>
+      <p style="font-size: 20px; text-align: justify;">
+        A cozy retreat surrounded by greenery, offering a peaceful escape in the middle of the city. 
+        Simple, quiet, and comfortable just like a place that feels like home away from home.
+      </p>
+    </div>
+
   </section>
 
   <!-- BOOKING -->
-  <section class="booking-section" id="booking-section">
-    <div class="booking-card" id="booking">
-    <div class="filter-row">
-        <div class="booking-container">
-          <i class="fa-solid fa-calendar" style="font-size: 32px;"></i>        
-          <div class="input-group">
-            <div class="text-content">
+  <section id="booking-section" class="booking-section">
+    <div class="content-wrap">
+
+      <!-- Booking Card -->
+      <div class="booking-card" id="booking">
+        <div class="filter-row">
+
+          <div class="booking-container">
+            <i class="fa-solid fa-calendar" style="font-size: 32px;"></i>
+            <div class="input-group">
               <h2>Check In & Check Out</h2>
-              <input id="check-in" class="modal-box" type="date"> -
-              <input id="check-out" class="modal-box" type="date">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <input id="check-in" type="date"> 
+                <span>-</span>
+                <input id="check-out" type="date">
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="booking-container">
-          <i class="fa-solid fa-building" style="font-size: 32px;"></i>
-          <div class="input-group">
-            <div class="text-content">
+          <div class="booking-container">
+            <i class="fa-solid fa-building" style="font-size: 32px;"></i>
+            <div class="input-group">
               <h2>Location</h2>
               <select id="building">
                 <option value="">Any</option>
@@ -65,49 +76,53 @@
               </select>
             </div>
           </div>
-        </div>
 
-        <div class="booking-container">
-          <i class="fa-solid fa-user" style="font-size: 32px;"></i>
-
-          <div class="input-group">
-            <div class="text-content">
+          <div class="booking-container">
+            <i class="fa-solid fa-user" style="font-size: 32px;"></i>
+            <div class="input-group">
               <h2>Guests</h2>
               <input id="guests" type="number" placeholder="Number of guests" min="1">
             </div>
-
           </div>
+
         </div>
+
+        <button class="submit-btn" onclick="checkAvailability(); document.querySelector('#rooms').scrollIntoView({behavior: 'smooth'})">Find the room for you!</button>
       </div>
-    <button class="submit-btn" onclick="checkAvailability()">Find the room for you!</button>
 
     </div>
-    
+  </section>
+
+  <!-- Rooms List -->
+  <section id="rooms">
     <div id="rooms">
-      <h1>ROOMS</h1>
-      <div class="rooms-list" id="rooms-list">
+      <h1>Discover our rooms</h1>
+      <div class="rooms-list" id="rooms-list"></div>
     </div>
-  </div>
   </section>
 
   <section id="gallery-section">
-      <h1>GALLERY</h1>
+    <h1 style="font-size: 40px; font-weight: 700; color: #1A2E1A">
+      Take a quick look...
+    </h1>
+    
+    <div class="content-wrap">
       <div class="gallery-wrapper">
 
-      <button class="arrow left" onclick="scrollGallery(-1)">‹</button>
+        <button class="arrow left" onclick="scrollGallery(-1)">‹</button>
 
-      <div class="gallery" id="gallery">
-        <img src="public/img1.jpg">
-        <img src="public/img2.jpg">
-        <img src="public/img3.jpg">
-        <img src="public/img4.jpg">
-        <img src="public/img5.jpg">
-        <img src="public/img6.jpg">
-        <img src="public/img7.jpg">
+        <div class="gallery" id="gallery">
+          <img src="public/img1.jpg">
+          <img src="public/img2.jpg">
+          <img src="public/img3.jpg">
+          <img src="public/img4.jpg">
+          <img src="public/img5.jpg">
+          <img src="public/img6.jpg">
+          <img src="public/img7.jpg">
+        </div>
+
+        <button class="arrow right" onclick="scrollGallery(1)">›</button>
       </div>
-
-      <button class="arrow right" onclick="scrollGallery(1)">›</button>
-
     </div>
   </section>
 
@@ -125,10 +140,9 @@
     </div>
   </div>
 
-
-<script src="script.js"></script>
   <!-- FOOTER -->
   <footer class="footer">
+    
     <div class="container">
 
       <div class="footer-grid">
@@ -137,11 +151,11 @@
         <div>
 
           <div class="footer-header">
-            <div class="logo-box">LOGO</div>
+            <img src="public/logo-belumfix.png" alt="Logo" width="50px">
 
             <div>
               <h2>Stay Lounge</h2>
-              <p>Luxury & Comfortable Place</p>
+              <p>An urban sanctuary surrounded by greenery</p>
             </div>
           </div>
 
@@ -174,7 +188,7 @@
 
       <!-- COPYRIGHT -->
       <div class="copyright">
-        <p>© 2026 Stay Lounge. All rights reserved.</p>
+        © 2026 Stay Lounge. All rights reserved.
       </div>
 
     </div>
