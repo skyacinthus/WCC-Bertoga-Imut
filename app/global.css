@@ -629,3 +629,33 @@ background-image:
 #modal-box button:last-of-type:hover {
   color: red;
 }
+
+#toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #3D2B1F;
+  color: white;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+#toast.show {
+  opacity: 1;
+}
+
+#toast.error {
+  background: #8B2020;
+}
+
+#toast.success {
+  background: #2D5A27;
+}

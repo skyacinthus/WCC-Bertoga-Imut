@@ -268,57 +268,13 @@
         //janlup ganti ini kalo mau pke tombol back
 
         //tamabahin ya sal HEHE ga paham
-        const confirmElements = document.querySelectorAll(".change-selection-link");
+        /* const confirmElements = document.querySelectorAll(".change-selection-link");
 
         confirmElements.forEach(element => {
             element.onclick = () => {
                 window.location.href = `/booking/selection.html?${params.toString()}`;
             };
-        });
-
-        document.getElementById("confirm-btn").onclick = async () => {
-            const firstName = document.getElementById("first-name").value.trim();
-            const lastName  = document.getElementById("last-name").value.trim();
-            const email     = document.getElementById("email").value.trim();
-            const phone     = document.getElementById("phone").value.trim();
-            
-            if (!firstName || !lastName || !email || !phone) {
-                alert("Please fill in all fields.");
-                return;
-            }
-
-            try {
-                const res = await fetch("/api/bookings", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    id_room_type: params.get("id_room_type"),
-                    check_in:     checkIn,
-                    check_out:    checkOut,
-                    num_guests:   guests,
-                    total_price:  grandTotal.toFixed(2),
-                    email: email,
-                    first_name: document.getElementById("first-name").value.trim(),
-                    last_name: document.getElementById("last-name").value.trim(),
-                    phone: document.getElementById("phone").value.trim()
-                })
-                });
-
-                const data = await res.json();
-
-                if (data.id_booking) {
-                    params.set("id_booking", data.id_booking);
-                    params.set("grand_total", grandTotal.toFixed(2));
-                    window.location.href = `/booking/payment.html?${params.toString()}`;
-                } else {
-                    alert("Something went wrong. Please try again.");
-                }
-
-            } catch (err) {
-                console.error(err);
-                alert("Failed to create booking. Please try again.");
-            }
-        };
+        }); */
 
         function startCountdown(minutes = 60) {
         let total = minutes * 60;
@@ -332,7 +288,7 @@
             if (total <= 0) {
             clearInterval(timer);
             el.textContent = "00:00";
-            alert("Payment time expired! Please try again.");
+            showToast("Payment time expired! Please try again.", "error");
             window.location.href = "/"; // redirect ke home
             }
 
@@ -377,26 +333,84 @@
         function copyAccount() {
         const number = document.getElementById('account-number').textContent;
         navigator.clipboard.writeText(number);
-        alert('Account number copied!');
+        showToast('Account number copied!', 'success');
         }
 
-        function confirmPayment() {
+        async function confirmPayment() {
             const proof = document.getElementById('payment-proof').files[0];
             const method = document.querySelector('input[name="payment"]:checked');
 
             if (!method) {
-                alert('Please select a payment method!');
+                showToast('Please select a payment method!', 'error');
                 return;
             }
             if (!proof) {
-                alert('Please upload your payment proof!');
+                showToast('Please upload your payment proof!', 'error');
                 return;
             }
 
-            // show success modal
-            const modal = document.getElementById('success-modal');
-            modal.style.display = 'flex';
+            try {
+                const res = await fetch("/api/bookings", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        id_room_type: params.get("id_room_type"),
+                        building:     params.get("building"),
+                        check_in:     params.get("check_in"),
+                        check_out:    params.get("check_out"),
+                        num_guests:   params.get("guests"),
+                        total_price:  params.get("grand_total"),
+                        email:        params.get("email"),
+                        first_name:   params.get("first_name"),
+                        last_name:    params.get("last_name"),
+                        phone:        params.get("phone"),
+                        payment_method: method.value
+                    })
+                });
+
+                const data = await res.json();
+                console.log("Booking response:", data);
+
+                if (!data.id_booking) {
+                    showToast("Something went wrong. Please try again.", "error");
+                    return;
+                }
+
+                await fetch("/api/payments", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        id_booking: data.id_booking,
+                        payment_method: method.value
+                    })
+                });
+
+                document.getElementById('success-modal').style.display = 'flex';
+
+            } catch (err) {
+                console.error(err);
+                showToast("Failed to confirm booking. Please try again.", "error");
+            }
+        }
+
+        function previewImage(input) {
+            const preview = document.getElementById('preview-img');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function showToast(message, type = "default") {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.className = `show ${type}`;
+            setTimeout(() => toast.className = "", 3000);
         }
     </script>
-
+    <div id="toast"></div>
 </body>

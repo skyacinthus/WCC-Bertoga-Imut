@@ -102,7 +102,7 @@ INSERT INTO room_types (room_type_name, capacity, facilities, price, installment
 ('Non Family - Alodie 1',  2, 'AC, WiFi, Breakfast, Pet Friendly, Kids Playground',                               350000.00, 300000.00, 'Alodie 1', 'public/img2.jpg'),
 ('White - Alodie 1',       2, 'AC, WiFi, Breakfast, Pet Friendly, Kids Playground',                      450000.00, 400000.00, 'Alodie 1', 'public/img3.jpg'),
 ('Kiddos - Alodie 1',      2, 'AC, WiFi, Breakfast, Pet Friendly, Kids Playground',              350000.00, 300000.00, 'Alodie 1', 'public/img4.jpg'),
-('Classic - Alodie 1',     2, 'AC, WiFi, Breakfast, Pet Friendly',                               350000.00, 300000.00, 'Alodie 1', 'public/img5.jpg'),
+('Classic - Alodie 1',     2, 'AC, WiFi, Breakfast, Pet Friendly, Kids Playground',                               350000.00, 300000.00, 'Alodie 1', 'public/img5.jpg'),
 ('Non Family - Alodie 2',  2, 'AC, WiFi, Breakfast, Kids Playground',                               350000.00, 300000.00, 'Alodie 2', 'public/img6.jpg'),
 ('Classic - Alodie 2',     2, 'AC, WiFi, Breakfast, Kids Playground',                  450000.00, 400000.00, 'Alodie 2', 'public/img7.jpg');
 

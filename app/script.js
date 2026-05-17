@@ -30,7 +30,7 @@ function checkAvailability() {
   const building = document.getElementById("building")?.value || null;
 
   if (checkIn && checkOut && new Date(checkOut) <= new Date(checkIn)) {
-    alert("Check-out must be after check-in.");
+    showToast("Check-out must be after check-in.", "error");
     return;
   }
 
@@ -167,7 +167,7 @@ async function selectRoom(selectionParams) {
       const isAvailable = availableRooms.some(r => r.id_room_type == roomTypeId);
 
       if (!isAvailable) {
-        alert("Sorry, this room is not available for the selected dates. Please choose different dates.");
+        showToast("Sorry, this room is not available for the selected dates. Please choose different dates.", "error");
         return;
       }
 
@@ -180,7 +180,7 @@ async function selectRoom(selectionParams) {
 
     } catch (err) {
       console.error(err);
-      alert("Failed to check availability. Please try again.");
+      showToast("Failed to check availability. Please try again.", "error");
     }
 
   } else {
@@ -209,12 +209,12 @@ async function confirmModalDates() {
 
 
   if (!checkIn || !checkOut) {
-    alert("Please fill in both dates.");
+    showToast("Please fill in both dates.", "error");
     return;
   }
 
   if (new Date(checkOut) <= new Date(checkIn)) {
-    alert("Check-out must be after check-in.");
+    showToast("Check-out must be after check-in.", "error");
     return;
   }
 
@@ -224,12 +224,12 @@ async function confirmModalDates() {
     const isAvailable = availableRooms.some(r => r.id_room_type == roomTypeId);
 
   if (!isAvailable) {
-      alert("Sorry, this room is not available for the selected dates. Please choose different dates.");
+      showToast("Sorry, this room is not available for the selected dates. Please choose different dates.", "error");
       return;
     }
   } catch (err) {
     console.error(err);
-    alert("Failed to check availability. Please try again.");
+    showToast("Failed to check availability. Please try again.", "error");
     return;
   }
 
@@ -260,3 +260,10 @@ window.addEventListener('scroll', () => {
     nav.style.borderRadius = '0px';
   }
 });
+
+function showToast(message, type = "default") {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.className = `show ${type}`;
+  setTimeout(() => toast.className = "", 3000);
+}

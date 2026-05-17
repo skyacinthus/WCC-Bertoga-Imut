@@ -197,42 +197,31 @@
             const phone     = document.getElementById("phone").value.trim();
             
             if (!firstName || !lastName || !email || !phone) {
-                alert("Please fill in all fields.");
+                showToast("Please fill in all fields.", "error");
                 return;
             }
 
-            try {
-                const res = await fetch("/api/bookings", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    id_room_type: params.get("id_room_type"),
-                    check_in:     checkIn,
-                    check_out:    checkOut,
-                    num_guests:   guests,
-                    total_price:  grandTotal.toFixed(2),
-                    email: email,
-                    first_name: document.getElementById("first-name").value.trim(),
-                    last_name: document.getElementById("last-name").value.trim(),
-                    phone: document.getElementById("phone").value.trim()
-                })
-                });
-
-                const data = await res.json();
-
-                if (data.id_booking) {
-                    params.set("id_booking", data.id_booking);
-                    params.set("grand_total", grandTotal.toFixed(2));
-                    window.location.href = `/booking/payment.html?${params.toString()}`;
-                } else {
-                    alert("Something went wrong. Please try again.");
-                }
-
-            } catch (err) {
-                console.error(err);
-                alert("Failed to create booking. Please try again.");
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showToast("Please enter a valid email address.", "error");
+                return;
             }
-        };
-    </script>
 
+            params.set("first_name", firstName);
+            params.set("last_name", lastName);
+            params.set("email", email);
+            params.set("phone", phone);
+            params.set("grand_total", grandTotal.toFixed(2));
+
+            window.location.href = `/booking/payment.html?${params.toString()}`;
+        };
+
+        function showToast(message, type = "default") {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.className = `show ${type}`;
+            setTimeout(() => toast.className = "", 3000);
+        }
+    </script>
+    <div id="toast"></div>
 </body>
