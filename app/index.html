@@ -159,12 +159,24 @@
             </div>
           </div>
 
-          <p class="address">
-            Jl. Wijaya Kusuma, Dero,
-            Condongcatur, Kec. Depok,
-            Kabupaten Sleman,
-            Daerah Istimewa Yogyakarta 55281
-          </p>
+          <!-- LOCATION BUTTON -->
+<div class="location-switch">
+  <button onclick="changeLocation('alodie1')" class="location-btn active" id="btn-alodie1">
+    Alodie 1
+  </button>
+
+  <button onclick="changeLocation('alodie2')" class="location-btn" id="btn-alodie2">
+    Alodie 2
+  </button>
+</div>
+
+<!-- ADDRESS -->
+<p class="address" id="footer-address">
+  Jl. Wijaya Kusuma, Dero,
+  Condongcatur, Kec. Depok,
+  Kabupaten Sleman,
+  Daerah Istimewa Yogyakarta 55281
+</p>
 
           <div class="social">
             <a href="https://wa.me/62811269722" target="_blank" style="color: inherit; text-decoration: none;">
@@ -183,10 +195,11 @@
         <!-- RIGHT -->
         <div class="footer-right">
           <div class="map-box">
-            <iframe
-              src="https://maps.google.com/maps?q=condongcatur%20sleman&t=&z=12&ie=UTF8&iwloc=&output=embed"
-              loading="lazy">
-            </iframe>
+           <iframe
+  id="footer-map"
+  src="https://maps.google.com/maps?q=condongcatur%20sleman&t=&z=12&ie=UTF8&iwloc=&output=embed"
+  loading="lazy">
+</iframe>
           </div>
         </div>
 

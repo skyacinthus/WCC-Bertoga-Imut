@@ -260,3 +260,46 @@ window.addEventListener('scroll', () => {
     nav.style.borderRadius = '0px';
   }
 });
+
+
+// FOOTER LOCATION SWITCH
+const footerLocations = {
+
+  alodie1: {
+    address: `
+      Jl. Wijaya Kusuma, Dero,
+      Condongcatur, Kec. Depok,
+      Kabupaten Sleman,
+      Daerah Istimewa Yogyakarta 55281
+    `,
+
+    map: "https://maps.google.com/maps?q=-7.7528351,110.4098662&z=17&output=embed"
+  },
+
+alodie2: {
+  address: `
+    Jl. Alodie 2,
+    Sleman,
+    Daerah Istimewa Yogyakarta
+  `,
+  map: "https://maps.google.com/maps?q=-7.7562536,110.391681&z=17&output=embed"
+}
+
+};
+
+function changeLocation(location) {
+
+  // CHANGE ADDRESS
+  document.getElementById("footer-address").innerHTML =
+    footerLocations[location].address;
+
+  // CHANGE MAP
+  document.getElementById("footer-map").src =
+    footerLocations[location].map;
+
+  // ACTIVE BUTTON
+  document.getElementById("btn-alodie1").classList.remove("active");
+  document.getElementById("btn-alodie2").classList.remove("active");
+
+  document.getElementById(`btn-${location}`).classList.add("active");
+}
