@@ -11,6 +11,12 @@ body{
     background-color: #F0F5EE;
 }
 
+p, h1, h2, h3, h4, h5, h6, span {
+  cursor: default !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
 .row{
     display: flex;
     flex-direction: column;
