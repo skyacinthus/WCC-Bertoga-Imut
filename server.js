@@ -56,8 +56,13 @@ app.get("/api/rooms", (req, res) => {
 
   db.query(sql, params, (err, result) => {
     if (err) {
-      console.error("FULL SQL ERROR:", err); // Look at your terminal for this!
-      return res.status(500).json({ error: "Failed to fetch rooms" });
+      // This will print the EXACT SQL error and the values sent in your terminal
+      console.log("--- DATABASE CRASH REPORT ---");
+      console.log("Error Message:", err.message);
+      console.log("SQL Query:", sql);
+      console.log("Parameters Sent:", params);
+      console.log("-----------------------------");
+      return res.status(500).json({ error: err.message });
     }
     res.json(result);
   });
@@ -102,8 +107,13 @@ app.get("/api/rooms/available", (req, res) => {
 
   db.query(sql, params, (err, result) => {
     if (err) {
-      console.error("SQL error:", err);
-      return res.status(500).json({ error: "Failed to fetch available rooms" });
+      // This will print the EXACT SQL error and the values sent in your terminal
+      console.log("--- DATABASE CRASH REPORT ---");
+      console.log("Error Message:", err.message);
+      console.log("SQL Query:", sql);
+      console.log("Parameters Sent:", params);
+      console.log("-----------------------------");
+      return res.status(500).json({ error: err.message });
     }
     res.json(result);
   });

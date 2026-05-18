@@ -193,8 +193,17 @@ background-image:
   opacity: 0.7;
 }
 
-#check-in, #check-out {
-  width: 160px;
+.date-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.date-group input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
 }
 
 #building {
@@ -862,11 +871,10 @@ background-image:
   }
 
   .booking-card input,
-  .booking-card select {
-    width: 100%;
-    max-height: 20px;
-    font-size: 12px;
-  }
+.booking-card select {
+  max-height: 20px;
+  font-size: 12px;
+}
 
   .booking-container i {
   font-size: 8px;
@@ -876,19 +884,50 @@ background-image:
 
   .booking-card h2 {
     font-weight: 700;
-    font-size: 14px;
+    font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: #2D5A27;
     margin-bottom: 4px;
   }  
+#check-in,
+#check-out {
+  width: 100%;
+  font-size: 14px;
+  padding: 8px 0;
+}
 
-  #check-in,
-  #check-out,
-  #building,
-  #guests {
-    width: 100%;
-  }
+.date-group span {
+  display: none;
+}
+#building,
+#guests {
+  width: 100%;
+}
+
+.date-group {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  width: 100%;
+}
+
+
+.date-group input {
+  width: 100%;
+  min-width: 0;
+  font-size: 10px;
+}
+
+#check-in,
+#check-out {
+  padding: 0;
+}
+.date-group span {
+  font-size: 10px;
+}
+
 
   .submit-btn {
   padding: 10px;

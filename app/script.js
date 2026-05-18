@@ -259,7 +259,7 @@ window.addEventListener('scroll', () => {
     } else {
       nav.style.width = '100%';
       nav.style.top = '0px';
-      nav.style.borderRadius = '0px';
+      nav.style.borderRadius = '0px'
     }
 
   }
@@ -288,9 +288,7 @@ const footerLocations = {
 
 alodie2: {
   address: `
-    Jl. Alodie 2,
-    Sleman,
-    Daerah Istimewa Yogyakarta
+    Jl. Harjosudiro 129 Concat Sleman Jogjakarta
   `,
   map: "https://maps.google.com/maps?q=-7.7562536,110.391681&z=17&output=embed"
 }
