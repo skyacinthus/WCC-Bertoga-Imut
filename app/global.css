@@ -462,6 +462,14 @@ background-image:
   margin-bottom: 20px;
 }
 
+.footer-header img {
+  width: 80px;         
+  height: 80px;        
+  object-fit: cover;   
+  border-radius: 50%;  
+  border: 2px solid #C8A96B; 
+}
+
 .logo-box {
   width: 60px;
   height: 60px;
