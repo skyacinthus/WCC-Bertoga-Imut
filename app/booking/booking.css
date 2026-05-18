@@ -195,12 +195,12 @@ body{
 
 .booking-date {
   display: flex;
-  justify-content: space-between;
+  gap: 32px;
+  width: 100%;
 }
 
 .booking-date-selection {
   display: flex;
-  justify-content: space-between;
   gap: 32px;
 }
 

@@ -105,8 +105,8 @@ section {
   background-size: cover;     
   background-position: center; 
 
-  background-image: 
-      linear-gradient(to bottom, rgba(245, 241, 230, 0) 80%, rgba(245, 241, 230, 1) 100%), url('/public/img1.jpg'); 
+background-image: 
+    linear-gradient(to bottom, rgba(245, 241, 230, 0) 80%, rgba(245, 241, 230, 1) 100%), url('/public/alodie1.jpg'); 
 }
 
 .hero-section h1 {
@@ -484,6 +484,14 @@ section {
   margin-bottom: 40px;
 }
 
+.footer-header img {
+  width: 80px;         
+  height: 80px;        
+  object-fit: cover;   
+  border-radius: 50%;  
+  border: 2px solid #C8A96B; 
+}
+
 .logo-box {
   width: 60px;
   height: 60px;
@@ -590,7 +598,7 @@ section {
 #modal-box h2 {
   font-size: 22px;
   font-weight: 700;
-  color: #3D2B1F;
+  color: #2D5A27;
 }
 
 #modal-box p {
@@ -604,7 +612,7 @@ section {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #8a7060;
+  color: #2D5A27;
 }
 
 #modal-box input[type="date"] {
@@ -618,7 +626,7 @@ section {
 }
 
 #modal-box input[type="date"]:focus {
-  border-color: #3D2B1F;
+  border-color: #2D5A27;
 }
 
 #modal-box button:first-of-type {
