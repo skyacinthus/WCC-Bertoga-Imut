@@ -246,18 +246,22 @@ async function confirmModalDates() {
 
   window.location.href = `/booking/selection.html?${existing.toString()}`;
 }
-
 //SCROLL AWARE NAVBAR
 window.addEventListener('scroll', () => {
-  const nav = document.querySelector('nav');
-  if (window.scrollY > 50) {
-    nav.style.width = 'calc(100% - 80px)';
-    nav.style.top = '20px';
-    nav.style.borderRadius = '20px';
-  } else {
-    nav.style.width = '100%';
-    nav.style.top = '0px';
-    nav.style.borderRadius = '0px';
+  const nav = document.querySelector('.navbar');
+
+  if (window.innerWidth > 768) {
+
+    if (window.scrollY > 50) {
+      nav.style.width = 'calc(100% - 80px)';
+      nav.style.top = '20px';
+      nav.style.borderRadius = '20px';
+    } else {
+      nav.style.width = '100%';
+      nav.style.top = '0px';
+      nav.style.borderRadius = '0px';
+    }
+
   }
 });
 
@@ -309,3 +313,20 @@ function changeLocation(location) {
 
   document.getElementById(`btn-${location}`).classList.add("active");
 }
+
+// MOBILE NAVBAR
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+
+hamburger.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+  document.body.classList.toggle("menu-open");
+});
+
+// CLOSE MENU WHEN CLICK LINK
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("active");
+    document.body.classList.remove("menu-open");
+  });
+});

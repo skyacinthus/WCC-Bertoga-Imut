@@ -12,15 +12,21 @@
 
 <body>
 
-  <!-- NAVBAR -->
-  <nav>
-    <ul>
-      <li><a href="#home">Home</a></li> 
-      <li><a href="#about">About us</a></li>
-      <li><a href="#booking-section">Booking</a></li>
-      <li><a href="#gallery-section">Gallery</a></li>
-    </ul>
-  </nav>
+ <!-- NAVBAR -->
+<nav class="navbar">
+
+  <div class="hamburger" id="hamburger">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About Us</a></li>
+    <li><a href="#booking-section">Booking</a></li>
+    <li><a href="#gallery-section">Gallery</a></li>
+  </ul>
+
+</nav>
   
   <!-- HERO -->
   <section id="home" class="hero-section">
@@ -95,18 +101,17 @@
 
   <!-- Rooms List -->
   <section id="rooms">
-    <div id="rooms">
+    <div id="room">
       <h1>Discover our rooms</h1>
       <div class="rooms-list" id="rooms-list"></div>
     </div>
   </section>
 
   <section id="gallery-section">
-    <h1 style="font-size: 40px; font-weight: 700; color: #1A2E1A">
+    <h1 style="font-weight: 700; color: #1A2E1A">
       Take a quick look...
     </h1>
     
-    <div class="content-wrap">
       <div class="gallery-wrapper">
 
         <button class="arrow left" onclick="scrollGallery(-1)">‹</button>
@@ -120,7 +125,6 @@
 
         <button class="arrow right" onclick="scrollGallery(1)">›</button>
       </div>
-    </div>
   </section>
 
   <div id="modal-overlay">

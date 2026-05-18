@@ -43,11 +43,20 @@ app.get("/api/rooms", (req, res) => {
   const params = [];
   if (guests) { sql += ` AND rt.capacity >= ?`; params.push(guests); }
   if (building) { sql += ` AND rt.building = ?`; params.push(building); }
-  sql += ` GROUP BY rt.id_room_type`;
+
+  sql += ` GROUP BY 
+    rt.id_room_type, 
+    rt.room_type_name, 
+    rt.capacity, 
+    rt.facilities, 
+    rt.price, 
+    rt.installment_price, 
+    rt.building, 
+    rt.image_url`;
 
   db.query(sql, params, (err, result) => {
     if (err) {
-      console.error("SQL error:", err);
+      console.error("FULL SQL ERROR:", err); // Look at your terminal for this!
       return res.status(500).json({ error: "Failed to fetch rooms" });
     }
     res.json(result);
