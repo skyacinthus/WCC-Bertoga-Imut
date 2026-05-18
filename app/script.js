@@ -278,7 +278,7 @@ const footerLocations = {
   alodie1: {
     address: `
       Jl. Wijaya Kusuma, Dero,
-      Condongcatur, Kec. Depok,
+      Condongcatur, Depok,
       Kabupaten Sleman,
       Daerah Istimewa Yogyakarta 55281
     `,
@@ -288,7 +288,10 @@ const footerLocations = {
 
 alodie2: {
   address: `
-    Jl. Harjosudiro 129 Concat Sleman Jogjakarta
+    Jl. Harjosudiro 129, 
+    Condongcatur, Depok,
+    Kabupaten Sleman, 
+    Daerah Istimewa Yogyakarta 55281
   `,
   map: "https://maps.google.com/maps?q=-7.7562536,110.391681&z=17&output=embed"
 }
