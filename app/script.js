@@ -136,7 +136,7 @@ function renderRooms(rooms, checkIn, checkOut, guests) {
         <h2>IDR ${Number(room.price).toLocaleString("id-ID")}</h2>
         ${nights > 1
           ? `<span>${nights} nights: IDR ${Number(totalPrice).toLocaleString("id-ID")}</span>`
-          : "<span>Includes Taxes & Fees</span>"
+          : "<span>Tax Not Included</span>"
         }
       <button onclick="selectRoom('${selectionParams}')">
         Select
