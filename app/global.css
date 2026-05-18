@@ -756,12 +756,6 @@ background-image:
     height: 70px;
   }
 
-  .logo {
-    font-size: 20px;
-    font-weight: 700;
-    z-index: 4000;
-  }
-
   .hamburger {
     display: block;
     font-size: 28px;
@@ -837,7 +831,7 @@ background-image:
   #about{
     margin-top: 0;
     gap: 0;
-    padding: 40px !important;
+    padding: 40px 15px !important;
   }
 
   #about h2 {
@@ -850,7 +844,7 @@ background-image:
 
   /* BOOKING */
   .booking-section {
-    padding: 40px 20px;
+    padding: 10px 10px;
   }
 
   .booking-card {
@@ -905,8 +899,20 @@ background-image:
 }
 
   /* ROOMS */
+  #rooms{
+    padding-inline: 30px;
+  }
+
   #rooms h1 {
     font-size: 24px;
+  }
+
+  .room-price h2{
+    font-size: 24px;
+  }
+
+  .features{
+    font-size: 1px;
   }
 
   .room-card {
