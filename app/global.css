@@ -92,7 +92,7 @@ section {
   background-position: center; 
 
 background-image: 
-    linear-gradient(to bottom, rgba(245, 241, 230, 0) 80%, rgba(245, 241, 230, 1) 100%), url('/public/img1.jpg'); 
+    linear-gradient(to bottom, rgba(245, 241, 230, 0) 80%, rgba(245, 241, 230, 1) 100%), url('/public/alodie1.jpg'); 
 }
 
 .hero-section h1 {
