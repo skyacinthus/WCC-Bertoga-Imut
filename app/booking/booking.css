@@ -448,11 +448,6 @@ input[type="radio"]:checked + .method-card span {
 
 
 /*BUTTON*/
-.button-container{
-  display: flex;
-  justify-content: center;
-  margin-top: 0px;
-}
 
 button {
   background: #2D5A27;
@@ -472,22 +467,6 @@ button {
   transition: 0.3s ease;
 }
 
-button.btn-selection{
-  color: white;
-
-  border: none;
-  border-radius: 12px;
-
-  width: 500px;
-  padding: 14px 28px;
-
-  font-size: 16px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition: 0.3s ease;
-}
 
 button:hover{
   background-color: #A8C5A0;
@@ -571,4 +550,60 @@ a:hover{
 
 #toast.success {
   background: #4eca3e;
+}
+
+/*RESPONSIVE*/
+@media (max-width: 768px) {
+  .selection-layout {
+    padding: 16px;
+  }
+
+  .card-selection {
+    width: 100%;
+  }
+
+  .booking-date-selection {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .details-layout {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .left-section {
+    width: 100%;
+  }
+
+  .right-section {
+    width: 100%;
+  }
+
+  .input-group input {
+    width: 100%;
+  }
+
+  .input-row {
+    flex-direction: column;
+  }
+
+  .stepper {
+    gap: 6px;
+    padding: 16px;
+  }
+
+  .line {
+    width: 40px;
+  }
+
+  .step p {
+    font-size: 12px;
+  }
+
+  .circle {
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+  }
 }
