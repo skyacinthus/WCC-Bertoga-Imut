@@ -53,7 +53,7 @@ body{
     font-size: 24px;
 
     color: #1A2E1A;
-    background: white;
+    background: #F0F5EE;
 }
 
 .line{
@@ -589,21 +589,21 @@ a:hover{
   }
 
   .stepper {
-    gap: 6px;
-    padding: 16px;
-  }
-
-  .line {
-    width: 40px;
-  }
-
-  .step p {
-    font-size: 12px;
+    gap: 4px;
+    padding: 16px 8px;
   }
 
   .circle {
     width: 24px;
     height: 24px;
-    font-size: 16px;
+    font-size: 14px;
+  }
+
+  .line {
+    width: 24px;
+  }
+
+  .step p {
+    font-size: 11px;
   }
 }
