@@ -163,6 +163,8 @@ background-image:
   font-size: 32px;
   color: #2D5A27;
   flex-shrink: 0;
+  width: 32px;
+  text-align: center;
 }
 
 .input-group{
@@ -902,20 +904,38 @@ background-image:
     padding: 8px 0;
   }
 
-  .date-group span {
-    display: none;
-  }
   #building,
   #guests {
     width: 100%;
   }
 
-  .date-group {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-    width: 100%;
+  @media (min-width: 601px) and (max-width: 850px) {
+    .date-group {
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .date-group span {
+      display: inline;
+    }
+
+    .date-group input {
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .date-group {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .date-group span {
+      display: none;
+    }
   }
 
 
@@ -1121,7 +1141,7 @@ background-image:
     min-height: 40vh;
     background-attachment: scroll; 
   }
-  
+
   .navbar {
     left: 0;
     transform: none;
