@@ -755,10 +755,6 @@ background-image:
     padding: 0 20px;
   }
 
-  section {
-    padding-inline: 20px;
-  }
-
   img {
     max-width: 100%;
     display: block;
@@ -814,12 +810,14 @@ background-image:
   body.menu-open {
     overflow: hidden;
   }
+}
 
-    
-  /* HERO */
+@media (max-width: 850px) {
+
+    /* HERO */
   .hero-section {
     width: 100%;
-    min-height: 50vh;
+    min-height: 30vh;
 
     padding-top: 100px;
     padding-bottom: 50px;
@@ -834,14 +832,14 @@ background-image:
   }
 
   .hero-section h1 {
-    font-size: clamp(42px, 12vw, 90px);
+    font-size: clamp(32px, 10vw, 60px);
     line-height: 1;
     margin-bottom: 0 !important;
 
     display: block;
   }
-
-  /* ABOUT */
+  
+    /* ABOUT */
   #about{
     margin-top: 0;
     gap: 0;
@@ -855,10 +853,11 @@ background-image:
   #about p {
     font-size: 12px !important;
   }
-}
-  /* BOOKING */
 
-@media (max-width: 850px) {
+  section {
+    padding-inline: 20px;
+  }
+
   .booking-section {
     padding: 10px 10px;
   }
